@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/img/
+Allow: /assets/vendor/
+
+Sitemap: https://nepsop.com.np/sitemap.xml
