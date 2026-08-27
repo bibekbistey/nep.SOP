@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Admin Dashboard | NEPSOP</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Favicons -->
+  <link href="../assets/favicon/apple-icon.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Admin CSS -->
+  <link href="../assets/css/admin.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <!-- Admin Navbar -->
+  <nav class="admin-navbar">
+    <a href="/admin/index.html" class="admin-brand">
+      <i class="bi bi-speedometer2"></i>
+      NEPSOP Admin
+      <span>/ Dashboard</span>
+    </a>
+    <div class="admin-navbar-right">
+      <span class="admin-email" id="adminEmail"></span>
+      <button class="admin-logout-btn" id="logoutBtn">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="admin-container">
+
+    <!-- Page Header -->
+    <div class="admin-page-header">
+      <h1><i class="bi bi-speedometer2"></i> Dashboard</h1>
+      <a href="/admin/blogs.html" class="admin-btn admin-btn-outline">
+        <i class="bi bi-journal-text"></i> Manage Blogs
+      </a>
+    </div>
+
+    <!-- Quick Links Card -->
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h2><i class="bi bi-link-45deg"></i> Quick Links</h2>
+      </div>
+      <div class="admin-stats-grid">
+        <a href="/admin/blogs.html" class="admin-btn admin-btn-outline" style="justify-content: center;">
+          <i class="bi bi-journal-text"></i> Manage Blogs
+        </a>
+        <a href="/admin/blog-create.html" class="admin-btn admin-btn-outline" style="justify-content: center;">
+          <i class="bi bi-plus-circle"></i> Create New Blog
+        </a>
+        <a href="/blogs.html" class="admin-btn admin-btn-outline" style="justify-content: center;" target="_blank">
+          <i class="bi bi-eye"></i> View Public Blogs
+        </a>
+        <a href="/index.html" class="admin-btn admin-btn-outline" style="justify-content: center;" target="_blank">
+          <i class="bi bi-house"></i> View Homepage
+        </a>
+      </div>
+    </div>
+
+    <!-- Statistics Management -->
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h2><i class="bi bi-graph-up"></i> Website Statistics</h2>
+        <div id="statsStatus"></div>
+      </div>
+
+      <div id="statsLoading" class="admin-loading">
+        <div class="admin-spinner"></div>
+      </div>
+
+      <div id="statsContent" style="display: none;">
+        <div class="admin-stats-grid">
+          <div class="admin-stat-item">
+            <label class="admin-stat-label" for="yearsExperience">Years Experience</label>
+            <input class="admin-stat-input" type="number" id="yearsExperience" min="0" placeholder="6">
+          </div>
+          <div class="admin-stat-item">
+            <label class="admin-stat-label" for="sopsDelivered">SOPs Delivered</label>
+            <input class="admin-stat-input" type="number" id="sopsDelivered" min="0" placeholder="20000">
+          </div>
+          <div class="admin-stat-item">
+            <label class="admin-stat-label" for="assignmentsDelivered">Assignments Delivered</label>
+            <input class="admin-stat-input" type="number" id="assignmentsDelivered" min="0" placeholder="1000">
+          </div>
+          <div class="admin-stat-item">
+            <label class="admin-stat-label" for="customers">Customers</label>
+            <input class="admin-stat-input" type="number" id="customers" min="0" placeholder="0">
+          </div>
+        </div>
+
+        <div style="margin-top: 24px; display: flex; align-items: center; gap: 12px;">
+          <button class="admin-btn admin-btn-primary" id="saveStatsBtn">
+            <i class="bi bi-check-lg"></i> Save Changes
+          </button>
+          <span id="lastUpdated" style="font-size: 12px; color: var(--admin-text-muted);"></span>
+        </div>
+      </div>
+
+      <div id="statsError" class="admin-empty" style="display: none;">
+        <i class="bi bi-exclamation-triangle"></i>
+        <p>Unable to load statistics. Please try refreshing the page.</p>
+        <button class="admin-btn admin-btn-outline" onclick="location.reload()">
+          <i class="bi bi-arrow-clockwise"></i> Retry
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <!-- Config -->
+  <script src="../assets/js/config.js"></script>
+
+  <!-- Supabase Client -->
+  <script src="../assets/js/supabase.js"></script>
+
+  <!-- Auth Module -->
+  <script src="../assets/js/auth.js"></script>
+
+  <!-- Stats Module -->
+  <script src="../assets/js/stats.js"></script>
+
+  <script>
+    (async function() {
+      // Protect this page
+      const session = await NEPSOP.auth.requireAuth();
+      if (!session) return;
+
+      // Show admin email
+      document.getElementById('adminEmail').textContent = session.user.email;
+
+      // Logout
+      document.getElementById('logoutBtn').addEventListener('click', async function() {
+        await NEPSOP.auth.logout();
+      });
+
+      // Load and display stats
+      const statsLoading = document.getElementById('statsLoading');
+      const statsContent = document.getElementById('statsContent');
+      const statsError = document.getElementById('statsError');
+      const statsStatus = document.getElementById('statsStatus');
+
+      let currentStats = null;
+
+      try {
+        currentStats = await NEPSOP.stats.getStats();
+
+        document.getElementById('yearsExperience').value = currentStats.years_experience || 0;
+        document.getElementById('sopsDelivered').value = currentStats.sops_delivered || 0;
+        document.getElementById('assignmentsDelivered').value = currentStats.assignments_delivered || 0;
+        document.getElementById('customers').value = currentStats.customers || 0;
+
+        if (currentStats.updated_at) {
+          document.getElementById('lastUpdated').textContent =
+            'Last updated: ' + new Date(currentStats.updated_at).toLocaleString();
+        }
+
+        statsLoading.style.display = 'none';
+        statsContent.style.display = 'block';
+      } catch (err) {
+        statsLoading.style.display = 'none';
+        statsError.style.display = 'block';
+      }
+
+      // Save stats
+      document.getElementById('saveStatsBtn').addEventListener('click', async function() {
+        if (!currentStats) return;
+
+        const btn = this;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Saving...';
+        statsStatus.innerHTML = '';
+
+        try {
+          const updated = await NEPSOP.stats.updateStats(currentStats.id, {
+            years_experience: document.getElementById('yearsExperience').value,
+            sops_delivered: document.getElementById('sopsDelivered').value,
+            assignments_delivered: document.getElementById('assignmentsDelivered').value,
+            customers: document.getElementById('customers').value,
+          });
+
+          currentStats = updated;
+
+          if (updated.updated_at) {
+            document.getElementById('lastUpdated').textContent =
+              'Last updated: ' + new Date(updated.updated_at).toLocaleString();
+          }
+
+          showToast('Statistics updated successfully!', 'success');
+        } catch (err) {
+          showToast('Unable to save changes. Please try again.', 'error');
+        }
+
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-check-lg"></i> Save Changes';
+      });
+
+      function showToast(message, type) {
+        // Remove existing toast
+        const existing = document.querySelector('.admin-toast');
+        if (existing) existing.remove();
+
+        const toast = document.createElement('div');
+        toast.className = 'admin-toast admin-toast-' + type;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(function() {
+          toast.remove();
+        }, 3000);
+      }
+    })();
+  </script>
+
+</body>
+</html>

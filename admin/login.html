@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Admin Login | NEPSOP</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Favicons -->
+  <link href="../assets/favicon/apple-icon.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Admin CSS -->
+  <link href="../assets/css/admin.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <div class="admin-login-wrapper">
+    <div class="admin-login-card">
+      <div class="admin-login-logo">
+        <h1>nep.SOP</h1>
+        <p>Admin Panel</p>
+      </div>
+
+      <div class="admin-login-error" id="loginError"></div>
+
+      <form id="loginForm" action="javascript:void(0)">
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="email">Email Address</label>
+          <input class="admin-form-input" type="email" id="email" name="email" required autocomplete="email" placeholder="admin@nepsop.com.np">
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="password">Password</label>
+          <input class="admin-form-input" type="password" id="password" name="password" required autocomplete="current-password" placeholder="Enter your password">
+        </div>
+
+        <button class="admin-btn admin-btn-primary" type="submit" id="loginBtn" style="width: 100%; justify-content: center; margin-top: 8px;">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span id="loginBtnText">Sign In</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <!-- Config -->
+  <script src="../assets/js/config.js"></script>
+
+  <!-- Supabase Client -->
+  <script src="../assets/js/supabase.js"></script>
+
+  <!-- Auth Module -->
+  <script src="../assets/js/auth.js"></script>
+
+  <script>
+    (async function() {
+      // Redirect if already logged in
+      const alreadyLoggedIn = await NEPSOP.auth.redirectIfAuthenticated();
+      if (alreadyLoggedIn) return;
+
+      const form = document.getElementById('loginForm');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const loginBtn = document.getElementById('loginBtn');
+      const loginBtnText = document.getElementById('loginBtnText');
+      const loginError = document.getElementById('loginError');
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        if (!email || !password) {
+          showError('Please enter both email and password.');
+          return;
+        }
+
+        // Show loading state
+        loginBtn.disabled = true;
+        loginBtnText.textContent = 'Signing in...';
+        loginError.style.display = 'none';
+
+        try {
+          await NEPSOP.auth.login(email, password);
+          window.location.href = '/admin/index.html';
+        } catch (err) {
+          console.error('[NEPSOP] Login error:', err);
+          if (err.message && err.message.includes('Invalid login')) {
+            showError('Invalid email or password. Please try again.');
+          } else {
+            showError('Unable to sign in. Please try again.');
+          }
+          loginBtn.disabled = false;
+          loginBtnText.textContent = 'Sign In';
+        }
+      });
+
+      function showError(msg) {
+        loginError.textContent = msg;
+        loginError.style.display = 'block';
+      }
+    })();
+  </script>
+
+</body>
+</html>

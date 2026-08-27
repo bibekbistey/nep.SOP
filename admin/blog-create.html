@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Create Blog | NEPSOP Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Favicons -->
+  <link href="../assets/favicon/apple-icon.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Admin CSS -->
+  <link href="../assets/css/admin.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <!-- Admin Navbar -->
+  <nav class="admin-navbar">
+    <a href="/admin/index.html" class="admin-brand">
+      <i class="bi bi-speedometer2"></i>
+      NEPSOP Admin
+      <span>/ Create Blog</span>
+    </a>
+    <div class="admin-navbar-right">
+      <span class="admin-email" id="adminEmail"></span>
+      <button class="admin-logout-btn" id="logoutBtn">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="admin-container">
+
+    <!-- Page Header -->
+    <div class="admin-page-header">
+      <h1><i class="bi bi-plus-circle"></i> Create New Blog</h1>
+      <a href="/admin/blogs.html" class="admin-btn admin-btn-outline">
+        <i class="bi bi-arrow-left"></i> Back to Blogs
+      </a>
+    </div>
+
+    <!-- Blog Form -->
+    <div class="admin-card">
+      <form id="blogForm">
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="title">Title *</label>
+          <input class="admin-form-input" type="text" id="title" name="title" required placeholder="How to Write a Strong SOP for Australia">
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="slug">Slug</label>
+          <input class="admin-form-input" type="text" id="slug" name="slug" placeholder="auto-generated-from-title">
+          <p class="admin-form-hint">Auto-generated from title. You can edit it manually.</p>
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="excerpt">Excerpt</label>
+          <textarea class="admin-form-input" id="excerpt" name="excerpt" rows="3" placeholder="A brief summary of the blog post..." style="min-height: 80px; resize: vertical;"></textarea>
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="featuredImage">Featured Image URL</label>
+          <input class="admin-form-input" type="url" id="featuredImage" name="featured_image" placeholder="https://example.com/image.jpg">
+          <p class="admin-form-hint">Paste a direct URL to the image.</p>
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="author">Author</label>
+          <input class="admin-form-input" type="text" id="author" name="author" placeholder="NEPSOP Team">
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="content">Content *</label>
+          <p class="admin-form-hint" style="margin-bottom: 8px;">HTML is supported. You can use headings, paragraphs, lists, images, and links.</p>
+          <textarea class="admin-form-textarea" id="content" name="content" placeholder="Write your blog content here. HTML is supported." style="min-height: 320px;"></textarea>
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="status">Status</label>
+          <select class="admin-form-input admin-form-select" id="status" name="status">
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+          </select>
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-top: 24px;">
+          <button type="submit" class="admin-btn admin-btn-primary" id="submitBtn">
+            <i class="bi bi-check-lg"></i> <span id="submitBtnText">Save Blog</span>
+          </button>
+          <a href="/admin/blogs.html" class="admin-btn admin-btn-outline">Cancel</a>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <!-- Config -->
+  <script src="../assets/js/config.js"></script>
+
+  <!-- Supabase Client -->
+  <script src="../assets/js/supabase.js"></script>
+
+  <!-- Auth Module -->
+  <script src="../assets/js/auth.js"></script>
+
+  <!-- Blogs Module -->
+  <script src="../assets/js/blogs.js"></script>
+
+  <script>
+    (async function() {
+      // Protect this page
+      const session = await NEPSOP.auth.requireAuth();
+      if (!session) return;
+
+      // Show admin email
+      document.getElementById('adminEmail').textContent = session.user.email;
+
+      // Logout
+      document.getElementById('logoutBtn').addEventListener('click', async function() {
+        await NEPSOP.auth.logout();
+      });
+
+      const titleInput = document.getElementById('title');
+      const slugInput = document.getElementById('slug');
+      const form = document.getElementById('blogForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const submitBtnText = document.getElementById('submitBtnText');
+
+      let slugManuallyEdited = false;
+
+      // Auto-generate slug from title
+      slugInput.addEventListener('focus', function() {
+        if (!slugManuallyEdited && !slugInput.value) {
+          slugInput.value = NEPSOP.blogs.generateSlug(titleInput.value);
+        }
+      });
+
+      slugInput.addEventListener('input', function() {
+        slugManuallyEdited = true;
+      });
+
+      titleInput.addEventListener('input', function() {
+        if (!slugManuallyEdited) {
+          slugInput.value = NEPSOP.blogs.generateSlug(titleInput.value);
+        }
+      });
+
+      // Handle form submission
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const title = titleInput.value.trim();
+        const slug = slugInput.value.trim() || NEPSOP.blogs.generateSlug(title);
+        const status = document.getElementById('status').value;
+
+        if (!title) {
+          showToast('Please enter a blog title.', 'error');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtnText.textContent = 'Saving...';
+
+        try {
+          const blog = await NEPSOP.blogs.createBlog({
+            title: title,
+            slug: slug,
+            excerpt: document.getElementById('excerpt').value.trim(),
+            featured_image: document.getElementById('featuredImage').value.trim(),
+            author: document.getElementById('author').value.trim(),
+            content: document.getElementById('content').value,
+            status: status,
+          });
+
+          showToast('Blog created successfully!', 'success');
+
+          // Redirect to edit page after short delay
+          setTimeout(function() {
+            window.location.href = '/admin/blog-edit.html?id=' + blog.id;
+          }, 1000);
+        } catch (err) {
+          console.error('[NEPSOP] Create blog error:', err);
+          showToast('Unable to save blog. Please try again.', 'error');
+          submitBtn.disabled = false;
+          submitBtnText.textContent = 'Save Blog';
+        }
+      });
+
+      function showToast(message, type) {
+        const existing = document.querySelector('.admin-toast');
+        if (existing) existing.remove();
+
+        const toast = document.createElement('div');
+        toast.className = 'admin-toast admin-toast-' + type;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(function() {
+          toast.remove();
+        }, 3000);
+      }
+    })();
+  </script>
+
+</body>
+</html>
