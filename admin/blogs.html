@@ -25,7 +25,7 @@
   <!-- Admin Navbar -->
   <nav class="admin-navbar">
     <a href="/admin/index.html" class="admin-brand">
-      <i class="bi bi-speedometer2"></i>
+      <i class="bi bi-grid-1x2-fill"></i>
       NEPSOP Admin
       <span>/ Blogs</span>
     </a>
@@ -42,9 +42,12 @@
 
     <!-- Page Header -->
     <div class="admin-page-header">
-      <h1><i class="bi bi-journal-text"></i> Blog Posts</h1>
+      <div>
+        <h1><i class="bi bi-journal-richtext"></i> Blog Posts</h1>
+        <p class="admin-page-subtitle">Create, edit and manage all blog content.</p>
+      </div>
       <a href="/admin/blog-create.html" class="admin-btn admin-btn-primary">
-        <i class="bi bi-plus-circle"></i> Create New Blog
+        <i class="bi bi-plus-lg"></i> Create New Blog
       </a>
     </div>
 
@@ -56,9 +59,10 @@
 
       <div id="blogsEmpty" class="admin-empty" style="display: none;">
         <i class="bi bi-journal-plus"></i>
-        <p>No blog posts yet.</p>
-        <a href="/admin/blog-create.html" class="admin-btn admin-btn-primary" style="margin-top: 12px;">
-          <i class="bi bi-plus-circle"></i> Create Your First Blog
+        <p>No blog posts yet</p>
+        <small>Create your first blog post to start publishing content.</small>
+        <a href="/admin/blog-create.html" class="admin-btn admin-btn-primary" style="margin-top: 8px;">
+          <i class="bi bi-plus-lg"></i> Create New Blog
         </a>
       </div>
 
@@ -66,11 +70,9 @@
         <table class="admin-table">
           <thead>
             <tr>
-              <th>Title</th>
+              <th>Blog Post</th>
               <th>Status</th>
-              <th>Author</th>
-              <th>Published</th>
-              <th>Created</th>
+              <th>Last Updated</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -79,9 +81,14 @@
         </table>
       </div>
 
+      <!-- Mobile Blog Cards -->
+      <div class="admin-blog-list" id="blogsMobile" style="display: none;">
+      </div>
+
       <div id="blogsError" class="admin-empty" style="display: none;">
         <i class="bi bi-exclamation-triangle"></i>
-        <p>Unable to load blog posts. Please try refreshing the page.</p>
+        <p>Unable to load blog posts.</p>
+        <small>Please try refreshing the page.</small>
         <button class="admin-btn admin-btn-outline" onclick="location.reload()">
           <i class="bi bi-arrow-clockwise"></i> Retry
         </button>
@@ -122,6 +129,7 @@
       const blogsLoading = document.getElementById('blogsLoading');
       const blogsEmpty = document.getElementById('blogsEmpty');
       const blogsTable = document.getElementById('blogsTable');
+      const blogsMobile = document.getElementById('blogsMobile');
       const blogsBody = document.getElementById('blogsBody');
       const blogsError = document.getElementById('blogsError');
 
@@ -131,6 +139,7 @@
         blogsLoading.style.display = 'flex';
         blogsEmpty.style.display = 'none';
         blogsTable.style.display = 'none';
+        blogsMobile.style.display = 'none';
         blogsError.style.display = 'none';
 
         try {
@@ -143,75 +152,94 @@
             return;
           }
 
+          // Desktop table
           blogsBody.innerHTML = blogs.map(function(blog) {
-            const statusClass = blog.status === 'published' ? 'admin-badge-published' : 'admin-badge-draft';
-            const statusLabel = blog.status === 'published' ? 'Published' : 'Draft';
-            const publishToggleLabel = blog.status === 'published' ? 'Unpublish' : 'Publish';
+            var statusClass = blog.status === 'published' ? 'admin-badge-published' : 'admin-badge-draft';
+            var statusLabel = blog.status === 'published' ? 'Published' : 'Draft';
+            var statusIcon = blog.status === 'published' ? 'check-circle-fill' : 'pencil-square';
+
+            var thumbHtml = blog.featured_image
+              ? '<img class="blog-thumb" src="' + NEPSOP.blogs.escapeHtml(blog.featured_image) + '" alt="" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'
+              : '';
+            var placeholderHtml = '<div class="blog-thumb-placeholder" style="' + (blog.featured_image ? 'display:none' : '') + '"><i class="bi bi-journal-text"></i></div>';
 
             return '<tr data-blog-id="' + blog.id + '">' +
-              '<td class="blog-title-cell"><a href="/admin/blog-edit.html?id=' + blog.id + '">' + NEPSOP.blogs.escapeHtml(blog.title) + '</a></td>' +
-              '<td><span class="admin-badge ' + statusClass + '">' + statusLabel + '</span></td>' +
-              '<td>' + NEPSOP.blogs.escapeHtml(blog.author || '—') + '</td>' +
-              '<td>' + NEPSOP.blogs.formatDate(blog.published_at) + '</td>' +
-              '<td>' + NEPSOP.blogs.formatDate(blog.created_at) + '</td>' +
+              '<td class="blog-title-cell">' +
+                '<div style="display:flex;align-items:center;gap:12px;">' +
+                  thumbHtml + placeholderHtml +
+                  '<div>' +
+                    '<a href="/admin/blog-edit.html?id=' + blog.id + '">' + NEPSOP.blogs.escapeHtml(blog.title) + '</a>' +
+                    '<span class="blog-meta">' + NEPSOP.blogs.formatDate(blog.updated_at || blog.created_at) + '</span>' +
+                  '</div>' +
+                '</div>' +
+              '</td>' +
+              '<td><span class="admin-badge ' + statusClass + '"><i class="bi bi-' + statusIcon + '"></i> ' + statusLabel + '</span></td>' +
+              '<td>' + NEPSOP.blogs.formatDate(blog.updated_at || blog.created_at) + '</td>' +
               '<td>' +
                 '<div class="admin-actions">' +
-                  '<a href="/admin/blog-edit.html?id=' + blog.id + '" class="admin-btn admin-btn-outline admin-btn-sm" title="Edit">' +
+                  '<a href="/admin/blog-edit.html?id=' + blog.id + '" class="admin-btn admin-btn-ghost" title="Edit">' +
                     '<i class="bi bi-pencil"></i> Edit' +
                   '</a>' +
-                  '<button class="admin-btn admin-btn-outline admin-btn-sm toggle-status-btn" data-id="' + blog.id + '" data-status="' + blog.status + '" title="' + publishToggleLabel + '">' +
-                    '<i class="bi bi-' + (blog.status === 'published' ? 'pause-circle' : 'play-circle') + '"></i> ' + publishToggleLabel +
-                  '</button>' +
-                  '<button class="admin-btn admin-btn-danger admin-btn-sm delete-blog-btn" data-id="' + blog.id + '" data-title="' + NEPSOP.blogs.escapeHtml(blog.title) + '" title="Delete">' +
-                    '<i class="bi bi-trash"></i> Delete' +
+                  '<button class="admin-btn admin-btn-ghost text-danger delete-blog-btn" data-id="' + blog.id + '" data-title="' + NEPSOP.blogs.escapeHtml(blog.title) + '" title="Delete">' +
+                    '<i class="bi bi-trash3"></i> Delete' +
                   '</button>' +
                 '</div>' +
               '</td>' +
             '</tr>';
           }).join('');
 
+          // Mobile cards
+          blogsMobile.innerHTML = blogs.map(function(blog) {
+            var statusClass = blog.status === 'published' ? 'admin-badge-published' : 'admin-badge-draft';
+            var statusLabel = blog.status === 'published' ? 'Published' : 'Draft';
+            var statusIcon = blog.status === 'published' ? 'check-circle-fill' : 'pencil-square';
+
+            var thumbHtml = blog.featured_image
+              ? '<img class="admin-blog-card-thumb" src="' + NEPSOP.blogs.escapeHtml(blog.featured_image) + '" alt="" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'
+              : '';
+            var placeholderHtml = '<div class="admin-blog-card-thumb-placeholder" style="' + (blog.featured_image ? 'display:none' : '') + '"><i class="bi bi-journal-text"></i></div>';
+
+            return '<div class="admin-blog-card" data-blog-id="' + blog.id + '">' +
+              thumbHtml + placeholderHtml +
+              '<div class="admin-blog-card-content">' +
+                '<div class="admin-blog-card-title"><a href="/admin/blog-edit.html?id=' + blog.id + '">' + NEPSOP.blogs.escapeHtml(blog.title) + '</a></div>' +
+                '<div class="admin-blog-card-meta">' +
+                  '<span class="admin-badge ' + statusClass + '"><i class="bi bi-' + statusIcon + '"></i> ' + statusLabel + '</span>' +
+                  '<span>' + NEPSOP.blogs.formatDate(blog.updated_at || blog.created_at) + '</span>' +
+                '</div>' +
+                '<div class="admin-blog-card-actions">' +
+                  '<a href="/admin/blog-edit.html?id=' + blog.id + '" class="admin-btn admin-btn-outline admin-btn-sm">' +
+                    '<i class="bi bi-pencil"></i> Edit' +
+                  '</a>' +
+                  '<button class="admin-btn admin-btn-outline admin-btn-sm delete-blog-btn" data-id="' + blog.id + '" data-title="' + NEPSOP.blogs.escapeHtml(blog.title) + '" style="color:var(--admin-danger);border-color:var(--admin-danger-border);">' +
+                    '<i class="bi bi-trash3"></i> Delete' +
+                  '</button>' +
+                '</div>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+
           blogsTable.style.display = 'block';
+          blogsMobile.style.display = 'flex';
 
-          // Bind toggle status buttons
-          blogsBody.querySelectorAll('.toggle-status-btn').forEach(function(btn) {
-            btn.addEventListener('click', async function() {
-              const id = this.dataset.id;
-              const currentStatus = this.dataset.status;
-              const newStatus = currentStatus === 'published' ? 'draft' : 'published';
-
-              this.disabled = true;
-              try {
-                const blog = await NEPSOP.blogs.getBlogById(id);
-                await NEPSOP.blogs.updateBlog(id, {
-                  ...blog,
-                  status: newStatus,
-                });
-                showToast('Blog status updated to ' + newStatus + '.', 'success');
-                await loadBlogs();
-              } catch (err) {
-                showToast('Unable to update status. Please try again.', 'error');
-                this.disabled = false;
-              }
-            });
-          });
-
-          // Bind delete buttons
-          blogsBody.querySelectorAll('.delete-blog-btn').forEach(function(btn) {
-            btn.addEventListener('click', async function() {
-              const id = this.dataset.id;
-              const title = this.dataset.title;
-
-              if (!confirm('Are you sure you want to delete "' + title + '"?')) return;
-
-              this.disabled = true;
-              try {
-                await NEPSOP.blogs.deleteBlog(id);
-                showToast('Blog deleted successfully.', 'success');
-                await loadBlogs();
-              } catch (err) {
-                showToast('Unable to delete blog. Please try again.', 'error');
-                this.disabled = false;
-              }
+          // Bind delete buttons (both desktop and mobile)
+          document.querySelectorAll('.delete-blog-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+              var id = this.dataset.id;
+              var title = this.dataset.title;
+              showConfirmDialog(
+                'Delete Blog Post',
+                'Are you sure you want to delete "' + title + '"? This action cannot be undone.',
+                async function() {
+                  try {
+                    await NEPSOP.blogs.deleteBlog(id);
+                    showToast('Blog deleted successfully.', 'success');
+                    await loadBlogs();
+                  } catch (err) {
+                    showToast('Unable to delete blog. Please try again.', 'error');
+                  }
+                }
+              );
             });
           });
 
@@ -221,18 +249,55 @@
         }
       }
 
-      function showToast(message, type) {
-        const existing = document.querySelector('.admin-toast');
+      // ── Confirmation Dialog ──
+      function showConfirmDialog(title, message, onConfirm) {
+        var existing = document.querySelector('.admin-dialog-overlay');
         if (existing) existing.remove();
 
-        const toast = document.createElement('div');
+        var overlay = document.createElement('div');
+        overlay.className = 'admin-dialog-overlay';
+        overlay.innerHTML =
+          '<div class="admin-dialog">' +
+            '<h3>' + title + '</h3>' +
+            '<p>' + message + '</p>' +
+            '<div class="admin-dialog-actions">' +
+              '<button class="admin-btn admin-btn-outline admin-dialog-cancel">Cancel</button>' +
+              '<button class="admin-btn admin-btn-danger admin-dialog-confirm">Delete</button>' +
+            '</div>' +
+          '</div>';
+
+        document.body.appendChild(overlay);
+
+        overlay.querySelector('.admin-dialog-cancel').addEventListener('click', function() {
+          overlay.remove();
+        });
+
+        overlay.querySelector('.admin-dialog-confirm').addEventListener('click', async function() {
+          this.disabled = true;
+          this.textContent = 'Deleting...';
+          await onConfirm();
+          overlay.remove();
+        });
+
+        overlay.addEventListener('click', function(e) {
+          if (e.target === overlay) overlay.remove();
+        });
+      }
+
+      // ── Toast ──
+      function showToast(message, type) {
+        var existing = document.querySelector('.admin-toast');
+        if (existing) existing.remove();
+
+        var icon = type === 'success' ? 'check-circle-fill' : 'exclamation-circle-fill';
+        var toast = document.createElement('div');
         toast.className = 'admin-toast admin-toast-' + type;
-        toast.textContent = message;
+        toast.innerHTML = '<i class="bi bi-' + icon + '"></i> ' + message;
         document.body.appendChild(toast);
 
         setTimeout(function() {
           toast.remove();
-        }, 3000);
+        }, 3500);
       }
     })();
   </script>
