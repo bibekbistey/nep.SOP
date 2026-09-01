@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <!-- Primary Meta Tags -->
+  <title>Blog | nep.SOP</title>
+  <meta name="description" content="Read blog articles from nep.SOP about SOP writing and study abroad.">
+
+  <!-- Canonical URL (dynamic) -->
+  <link rel="canonical" href="https://nepsop.com.np/blog.html">
+
+  <!-- Robots -->
+  <meta name="robots" content="index, follow">
+
+  <!-- Favicons -->
+  <link href="assets/favicon/apple-icon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Open Graph / Facebook (dynamic) -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://nepsop.com.np/blog.html">
+  <meta property="og:title" content="Blog | nep.SOP">
+  <meta property="og:description" content="Read blog articles from nep.SOP about SOP writing and study abroad.">
+  <meta property="og:image" content="https://nepsop.com.np/assets/img/neop.sop.png">
+  <meta property="og:site_name" content="nep.SOP">
+
+  <!-- Twitter Card (dynamic) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog | nep.SOP">
+  <meta name="twitter:description" content="Read blog articles from nep.SOP about SOP writing and study abroad.">
+  <meta name="twitter:image" content="https://nepsop.com.np/assets/img/neop.sop.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Blog Detail Styles -->
+  <style>
+    :root {
+      --blog-shell-bg: #f7f6f4;
+      --blog-card-bg: #ffffff;
+      --blog-border: #ecedf0;
+      --blog-text: #1f2430;
+      --blog-muted: #667085;
+      --blog-soft: #f5f1ee;
+      --blog-red: #cd4629;
+      --blog-red-deep: #a93a22;
+      --blog-shadow: 0 12px 30px rgba(18, 24, 40, 0.08);
+    }
+
+    body {
+      background: var(--blog-shell-bg);
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .blog-detail-hero {
+      background: linear-gradient(135deg, #a52f20 0%, #c3432b 38%, #7c1d13 100%);
+      padding: 76px 0 54px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .blog-detail-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 12% 8%, rgba(255,255,255,0.16), transparent 22%),
+                  radial-gradient(circle at 80% 18%, rgba(255,255,255,0.08), transparent 20%),
+                  linear-gradient(135deg, rgba(255,255,255,0.03), rgba(0,0,0,0.06));
+      pointer-events: none;
+    }
+
+    .blog-detail-hero .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .blog-detail-hero .breadcrumb-nav {
+      margin-bottom: 18px;
+    }
+
+    .blog-detail-hero .breadcrumb-nav a,
+    .blog-detail-hero .breadcrumb-nav span {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .blog-detail-hero .breadcrumb-nav a:hover {
+      color: #fff;
+    }
+
+    .blog-detail-hero .breadcrumb-nav .separator {
+      margin: 0 8px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .blog-detail-section {
+      padding: 36px 0 80px;
+      background: #f7f6f4;
+    }
+
+    .blog-detail-wrapper {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .blog-detail-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(220px, 300px);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .blog-detail-main {
+      min-width: 0;
+    }
+
+    .blog-detail-article {
+      background: var(--blog-card-bg);
+      border: 1px solid var(--blog-border);
+      border-radius: 22px;
+      box-shadow: var(--blog-shadow);
+      overflow: hidden;
+    }
+
+    .blog-detail-header {
+      padding: 26px 28px 0;
+    }
+
+    .blog-detail-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(205, 70, 41, 0.08);
+      border: 1px solid rgba(205, 70, 41, 0.12);
+      color: var(--blog-red);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: 8px 12px;
+      margin-bottom: 18px;
+    }
+
+    .blog-detail-title {
+      font-family: var(--font-primary);
+      font-size: clamp(2.1rem, 3vw, 3.3rem);
+      font-weight: 700;
+      color: var(--blog-text);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin: 0 0 18px;
+    }
+
+    .blog-detail-intro {
+      margin: 0 0 22px;
+      color: var(--blog-muted);
+      font-size: 1.07rem;
+      line-height: 1.8;
+      max-width: 780px;
+    }
+
+    .blog-detail-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--blog-border);
+      font-size: 0.82rem;
+      color: #697586;
+    }
+
+    .blog-detail-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 600;
+    }
+
+    .blog-detail-meta i {
+      color: var(--blog-red);
+      font-size: 0.8rem;
+    }
+
+    .blog-detail-featured-wrap {
+      padding: 0 28px;
+    }
+
+    .blog-detail-featured-img {
+      width: 100%;
+      aspect-ratio: 16 / 8.5;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 16px 28px rgba(17, 24, 39, 0.08);
+      border: 1px solid rgba(17, 24, 39, 0.05);
+      display: block;
+      background: #f2f2f2;
+    }
+
+    .blog-detail-highlight {
+      margin: 24px 28px 0;
+      background: linear-gradient(135deg, #fff8f6, #fdf4f2);
+      border: 1px solid rgba(205, 70, 41, 0.12);
+      border-radius: 16px;
+      padding: 18px 20px;
+    }
+
+    .blog-detail-highlight h3 {
+      margin: 0 0 8px;
+      font-size: 0.9rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blog-red);
+      font-weight: 700;
+    }
+
+    .blog-detail-highlight p {
+      margin: 0;
+      color: var(--blog-text);
+      line-height: 1.7;
+      font-size: 0.98rem;
+    }
+
+    .blog-detail-content {
+      padding: 28px;
+      font-size: 1.04rem;
+      line-height: 1.9;
+      color: #2d3441;
+    }
+
+    .blog-detail-content h1,
+    .blog-detail-content h2,
+    .blog-detail-content h3,
+    .blog-detail-content h4,
+    .blog-detail-content h5 {
+      font-family: var(--font-primary);
+      color: var(--blog-text);
+      margin: 2.1em 0 0.8em;
+      line-height: 1.25;
+      letter-spacing: -0.03em;
+    }
+
+    .blog-detail-content h2 {
+      font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+      font-weight: 700;
+    }
+
+    .blog-detail-content h3 {
+      font-size: clamp(1.2rem, 1.7vw, 1.55rem);
+      font-weight: 700;
+    }
+
+    .blog-detail-content p {
+      margin-bottom: 1.2em;
+    }
+
+    .blog-detail-content ul,
+    .blog-detail-content ol {
+      margin: 0 0 1.4em 1.2em;
+      padding-left: 1rem;
+    }
+
+    .blog-detail-content li + li {
+      margin-top: 0.55em;
+    }
+
+    .blog-detail-content img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin: 1.6em 0;
+      box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08);
+    }
+
+    .blog-detail-content a {
+      color: var(--color-primary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .blog-detail-content a:hover {
+      color: var(--color-secondary);
+    }
+
+    .blog-detail-content blockquote {
+      margin: 1.8em 0;
+      border-left: 4px solid var(--blog-red);
+      border-radius: 0 14px 14px 0;
+      background: #f8f8f8;
+      padding: 18px 22px;
+      color: #465067;
+      font-style: italic;
+    }
+
+    .blog-detail-content strong {
+      font-weight: 700;
+      color: var(--blog-text);
+    }
+
+    .blog-detail-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 0 28px 28px;
+      flex-wrap: wrap;
+    }
+
+    .blog-detail-share {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+      color: var(--blog-muted);
+      font-weight: 600;
+    }
+
+    .blog-share-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--blog-border);
+      background: #fff;
+      color: var(--blog-text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .blog-share-btn:hover {
+      background: var(--blog-red);
+      color: #fff;
+      border-color: var(--blog-red);
+      transform: translateY(-1px);
+    }
+
+    .blog-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-primary);
+      font-weight: 700;
+      color: var(--blog-red);
+      text-decoration: none;
+      transition: gap 0.2s ease;
+    }
+
+    .blog-back-link:hover {
+      gap: 11px;
+    }
+
+    .blog-toc {
+      position: sticky;
+      top: 24px;
+      background: #fff;
+      border: 1px solid var(--blog-border);
+      border-radius: 18px;
+      box-shadow: var(--blog-shadow);
+      padding: 18px 18px 12px;
+      overflow: hidden;
+    }
+
+    .blog-toc h3 {
+      margin: 0 0 12px;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blog-muted);
+      font-weight: 700;
+    }
+
+    .blog-toc ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .blog-toc a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blog-text);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .blog-toc a:hover,
+    .blog-toc a.active {
+      background: rgba(205, 70, 41, 0.06);
+      color: var(--blog-red);
+    }
+
+    .blog-toc-number {
+      display: inline-flex;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      background: #f4f4f4;
+      color: var(--blog-muted);
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .blog-detail-related {
+      margin-top: 44px;
+      background: transparent;
+    }
+
+    .blog-related-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .blog-related-header h2 {
+      margin: 0;
+      font-size: clamp(1.5rem, 2vw, 2rem);
+      letter-spacing: -0.03em;
+    }
+
+    .blog-related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .blog-related-card {
+      background: #fff;
+      border: 1px solid var(--blog-border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--blog-shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-related-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 32px rgba(17, 24, 39, 0.12);
+    }
+
+    .blog-related-image {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #f3f3f3;
+    }
+
+    .blog-related-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.28s ease;
+    }
+
+    .blog-related-card:hover .blog-related-image img {
+      transform: scale(1.04);
+    }
+
+    .blog-related-body {
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .blog-related-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .blog-related-tag {
+      color: var(--blog-red);
+      background: rgba(205, 70, 41, 0.08);
+      border: 1px solid rgba(205, 70, 41, 0.12);
+      border-radius: 999px;
+      padding: 6px 8px;
+    }
+
+    .blog-related-date {
+      color: var(--blog-muted);
+      letter-spacing: 0.02em;
+      text-transform: none;
+      font-weight: 600;
+    }
+
+    .blog-related-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+      line-height: 1.4;
+    }
+
+    .blog-related-card h3 a {
+      color: var(--blog-text);
+      text-decoration: none;
+    }
+
+    .blog-related-card h3 a:hover {
+      color: var(--blog-red);
+    }
+
+    .blog-related-card p {
+      margin: 0 0 14px;
+      color: var(--blog-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .blog-related-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--blog-red);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .blog-related-link:hover {
+      color: var(--blog-red-deep);
+    }
+
+    .blog-detail-cta {
+      margin-top: 42px;
+      background: linear-gradient(135deg, #fff8f6, #fdf2ed);
+      border: 1px solid rgba(205, 70, 41, 0.12);
+      border-radius: 22px;
+      padding: 32px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: var(--blog-shadow);
+    }
+
+    .blog-detail-cta h3 {
+      margin: 0 0 8px;
+      font-size: clamp(1.5rem, 2vw, 2.2rem);
+      letter-spacing: -0.03em;
+      color: var(--blog-text);
+    }
+
+    .blog-detail-cta p {
+      margin: 0;
+      color: var(--blog-muted);
+      line-height: 1.7;
+      max-width: 640px;
+    }
+
+    .blog-detail-cta .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--blog-red);
+      color: #fff;
+      border-radius: 12px;
+      padding: 14px 22px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 10px 20px rgba(205, 70, 41, 0.18);
+      white-space: nowrap;
+    }
+
+    .blog-detail-cta .cta-button:hover {
+      background: var(--blog-red-deep);
+      color: #fff;
+    }
+
+    .blog-not-found {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .blog-not-found h2 {
+      font-family: var(--font-primary);
+      font-size: 28px;
+      font-weight: 700;
+      margin: 16px 0 8px;
+    }
+
+    .blog-not-found p {
+      color: #666;
+      font-size: 16px;
+    }
+
+    @media (max-width: 991px) {
+      .blog-detail-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .blog-toc {
+        position: static;
+      }
+
+      .blog-related-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .blog-detail-cta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .blog-detail-hero {
+        padding: 58px 0 42px;
+      }
+
+      .blog-detail-header,
+      .blog-detail-featured-wrap,
+      .blog-detail-content,
+      .blog-detail-footer,
+      .blog-detail-highlight {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .blog-detail-article {
+        border-radius: 18px;
+      }
+
+      .blog-detail-title {
+        font-size: 2rem;
+      }
+
+      .blog-detail-featured-img {
+        border-radius: 14px;
+      }
+
+      .blog-related-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .blog-detail-share {
+        width: 100%;
+      }
+
+      .blog-detail-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="topbar d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:info@nepsop.com.np">info@nepsop.com.np</a></i>
+        <i class="bi bi-phone d-flex align-items-center ms-4"><a href="tel:+977-9861935709">+977-9861935709</a></i>
+      </div>
+      <div class="social-links d-none d-md-flex align-items-center">
+        <a href="https://www.facebook.com/nep.sopwrite" target="_blank" class="facebook" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com/nep.sop/" target="_blank" class="instagram" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+        <a href="https://wa.me/9779861935709/?text=Hi%20there!%20Anyone%20up%20for%20help?#" target="_blank" class="whatsapp" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <span class="logo-text">nep.SOP</span>
+      </a>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li class="dropdown"><a href="index.html#services"><span>Services</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="sop-writing-nepal.html">SOP Writing Nepal</a></li>
+              <li><a href="australia-sop.html">Australia SOP</a></li>
+              <li><a href="canada-sop.html">Canada SOP</a></li>
+              <li><a href="usa-sop.html">USA SOP</a></li>
+              <li><a href="uk-sop.html">UK SOP</a></li>
+              <li><a href="germany-sop.html">Germany SOP</a></li>
+              <li><a href="malta-sop.html">Malta SOP</a></li>
+              <li><a href="dependent-visa-sop.html">Dependent Visa SOP</a></li>
+            </ul>
+          </li>
+          <li><a href="why-choose-nepsop.html">Why Us?</a></li>
+          <li><a href="blogs.html" class="active">Blog</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+          <li><a href="index.html#contact">Contact Us</a></li>
+        </ul>
+      </nav>
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+    </div>
+  </header>
+
+  <!-- ======= Blog Detail Hero ======= -->
+  <section class="blog-detail-hero">
+    <div class="container">
+      <div class="breadcrumb-nav">
+        <a href="index.html">Home</a>
+        <span class="separator">/</span>
+        <a href="blogs.html">Blog</a>
+        <span class="separator">/</span>
+        <span id="breadcrumbTitle">Loading...</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Blog Detail Section ======= -->
+  <section class="blog-detail-section">
+    <div class="container">
+      <div class="blog-detail-wrapper" id="blog-content">
+        <div class="text-center py-5">
+          <div class="spinner-border text-danger" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-3" style="color: #888;">Loading blog post...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-info">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span>nep.SOP</span>
+          </a>
+          <p>nep.SOP is a trusted <strong>SOP writing agency in Nepal</strong> specializing in crafting personalized and impactful Statements of Purpose.</p>
+          <div class="social-links d-flex mt-4">
+            <a href="https://www.facebook.com/nep.sopwrite" target="_blank" class="facebook" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/nep.sop/" target="_blank" class="instagram" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="https://wa.me/9779861935709/?text=Hi%20there!%20Anyone%20up%20for%20help?#" target="_blank" class="whatsapp" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About us</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="sop-writing-nepal.html">SOP Writing Nepal</a></li>
+            <li><a href="australia-sop.html">Australia SOP</a></li>
+            <li><a href="canada-sop.html">Canada SOP</a></li>
+            <li><a href="usa-sop.html">USA SOP</a></li>
+            <li><a href="uk-sop.html">UK SOP</a></li>
+            <li><a href="germany-sop.html">Germany SOP</a></li>
+            <li><a href="malta-sop.html">Malta SOP</a></li>
+            <li><a href="dependent-visa-sop.html">Dependent Visa SOP</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>
+            <strong>Email:</strong> info@nepsop.com.np<br>
+            <strong>Phone:</strong> +977 9861935709<br>
+            <strong>WhatsApp:</strong> <a href="https://wa.me/9779861935709" style="color: #fff;">+977 9861935709</a><br>
+            <strong>Hours:</strong> 24/7 Support<br>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>nep.SOP</span></strong>. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <!-- Config -->
+  <script src="assets/js/config.js"></script>
+
+  <!-- Supabase Client -->
+  <script src="assets/js/supabase.js"></script>
+
+  <!-- Public Blogs -->
+  <script src="assets/js/public-blogs.js?v=2"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.NEPSOP_PUBLIC && NEPSOP_PUBLIC.blogs && typeof NEPSOP_PUBLIC.blogs.loadBlogDetail === 'function') {
+        NEPSOP_PUBLIC.blogs.loadBlogDetail();
+      }
+    });
+  </script>
+
+</body>
+</html>

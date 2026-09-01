@@ -151,7 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * Initiate Pure Counter
    */
-  new PureCounter();
+  if (typeof PureCounter !== 'undefined') {
+    new PureCounter();
+  }
 
   /**
    * Clients Slider (guard: only init if element exists)

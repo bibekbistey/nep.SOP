@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build": "node build.js",
+    "prebuild": "echo 'Building config from .env...'",
+    "dev": "npx serve ."
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.112.4"
+  },
+  "devDependencies": {
+    "dotenv": "^17.4.2"
+  }
+}

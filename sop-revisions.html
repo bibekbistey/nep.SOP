@@ -40,104 +40,710 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    .detail-hero{background:#FFF9F6;padding:80px 0 60px;position:relative;overflow:hidden}
-    .detail-hero .hero-content{display:flex;align-items:center;gap:60px;min-height:500px}
-    .detail-hero .hero-copy{flex:0 0 50%;max-width:540px}
-    .detail-hero .hero-eyebrow{display:inline-block;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#D94A2B;margin-bottom:16px;position:relative;padding-left:28px}
-    .detail-hero .hero-eyebrow::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:18px;height:2px;background:#D94A2B;border-radius:1px}
-    .detail-hero .hero-copy h1{font-family:'Montserrat',sans-serif;font-size:48px;font-weight:800;line-height:1.15;color:#182638;margin-bottom:20px;letter-spacing:-0.3px}
-    .detail-hero .hero-description{font-family:'Open Sans',sans-serif;font-size:17px;line-height:1.7;color:#182638;max-width:520px;margin-bottom:28px;opacity:0.75}
-    .detail-hero .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
-    .detail-hero .btn-primary-action{display:inline-flex;align-items:center;gap:8px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:15px;color:#fff;background:#D94A2B;padding:15px 30px;border-radius:8px;border:2px solid #D94A2B;transition:all 0.35s ease;text-decoration:none}
-    .detail-hero .btn-primary-action:hover{background:#c13d22;border-color:#c13d22;transform:translateY(-2px);box-shadow:0 8px 25px rgba(217,74,43,0.25);color:#fff}
-    .detail-hero .btn-secondary-action{display:inline-flex;align-items:center;gap:8px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:15px;color:#D94A2B;background:transparent;padding:15px 30px;border-radius:8px;border:2px solid #D94A2B;transition:all 0.35s ease;text-decoration:none}
-    .detail-hero .btn-secondary-action:hover{background:rgba(217,74,43,0.06);transform:translateY(-2px);color:#c13d22;border-color:#c13d22}
-    .detail-hero .hero-visual{flex:1;position:relative;display:flex;align-items:center;justify-content:center;min-height:400px}
-    .detail-hero .visual-bg-shape{position:absolute;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(217,74,43,0.07) 0%,rgba(217,74,43,0.02) 60%,transparent 72%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
-    .detail-hero .visual-cycle-box{width:160px;height:160px;background:#fff;border-radius:32px;box-shadow:0 20px 60px rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:center;position:relative;z-index:2}
-    .detail-hero .visual-cycle-box i{font-size:64px;color:#8E44AD}
-    .detail-hero .visual-cycle-dot{position:absolute;width:12px;height:12px;border-radius:50%;z-index:1}
-    .detail-hero .vcd-1{background:#8E44AD;opacity:0.15;top:12%;left:12%;width:18px;height:18px}
-    .detail-hero .vcd-2{background:#8E44AD;opacity:0.1;bottom:15%;right:15%;width:24px;height:24px}
-    .detail-hero .vcd-3{background:#8E44AD;opacity:0.2;bottom:28%;left:8%;width:12px;height:12px}
-
-    .detail-section{padding:70px 0}
-    .detail-section+.detail-section{border-top:1px solid #f0f0f0}
-    .detail-section.bg-soft{background:#f8f9fa}
-    .detail-section .content-width{max-width:820px;margin:0 auto}
-    .detail-section h2{font-family:'Montserrat',sans-serif;font-size:30px;font-weight:700;color:#182638;margin-bottom:20px}
-    .detail-section h3{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:600;color:#182638;margin-bottom:14px}
-    .detail-section p{font-size:16px;line-height:1.8;color:#555;margin-bottom:16px}
-    .detail-section ul{padding-left:20px;margin-bottom:20px}
-    .detail-section ul li{margin-bottom:10px;color:#555;line-height:1.6}
-    .detail-section ul li::marker{color:var(--color-primary)}
-
-    .revision-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:30px}
-    .rev-step{text-align:center;position:relative}
-    .rev-step .rs-num{width:52px;height:52px;border-radius:50%;background:#8E44AD;color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700}
-    .rev-step h4{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;color:#182638;margin-bottom:8px}
-    .rev-step p{font-size:13px;line-height:1.6;color:#777;margin-bottom:0}
-
-    .highlight-box{background:#FFF9F6;border-left:4px solid #D94A2B;padding:28px 32px;border-radius:0 12px 12px 0;margin:30px 0}
-    .highlight-box p:last-child{margin-bottom:0}
-
-    .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:30px}
-    .related-card{display:block;background:#fff;border:1px solid #eee;border-radius:14px;padding:28px 24px;text-decoration:none;transition:all 0.35s ease}
-    .related-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,0.07);border-color:transparent;text-decoration:none}
-    .related-card .rc-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px}
-    .related-card:nth-child(1) .rc-icon{background:rgba(205,70,41,0.08);color:#CD4629}
-    .related-card:nth-child(2) .rc-icon{background:rgba(26,115,232,0.08);color:#1A73E8}
-    .related-card:nth-child(3) .rc-icon{background:rgba(45,106,79,0.08);color:#2D6A4F}
-    .related-card h4{font-size:17px;font-weight:700;color:#182638;margin-bottom:8px;transition:color 0.3s ease}
-    .related-card:hover h4{color:var(--color-primary)}
-    .related-card p{font-size:14px;color:#666;line-height:1.6;margin-bottom:14px}
-    .related-card .rc-link{font-size:14px;font-weight:600;color:var(--color-primary);display:inline-flex;align-items:center;gap:6px}
-    .related-card .rc-link i{transition:transform 0.3s ease}
-    .related-card:hover .rc-link i{transform:translateX(4px)}
-
-    .breadcrumb-custom{background-color:#f6f6f6;padding:15px 0}
-    .breadcrumb-custom nav ol{display:flex;flex-wrap:wrap;list-style:none;margin:0;padding:0;font-size:15px}
-    .breadcrumb-custom nav ol li+li::before{content:"/";padding:0 10px;color:var(--color-secondary)}
-
-    .feedback-cols{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:30px}
-    .fc-item{background:#fff;border:1px solid #eee;border-radius:12px;padding:24px 20px;display:flex;align-items:flex-start;gap:14px;transition:all 0.3s ease}
-    .fc-item:hover{box-shadow:0 6px 20px rgba(0,0,0,0.05)}
-    .fc-item .fc-icon{font-size:24px;color:#8E44AD;flex-shrink:0}
-    .fc-item .fc-text h4{font-size:16px;font-weight:700;color:#182638;margin-bottom:4px}
-    .fc-item .fc-text p{font-size:14px;margin-bottom:0}
-
-    @media (max-width:991px){
-      .detail-hero .hero-content{flex-direction:column;gap:40px;min-height:auto}
-      .detail-hero .hero-copy{flex:none;max-width:100%}
-      .detail-hero .hero-copy h1{font-size:36px}
-      .detail-hero .hero-visual{min-height:320px;width:100%}
-      .detail-hero .visual-bg-shape{width:340px;height:340px}
-      .revision-steps{grid-template-columns:repeat(3,1fr)}
-      .feedback-cols{grid-template-columns:1fr}
-      .related-grid{grid-template-columns:repeat(2,1fr)}
+    /* ===================== Breadcrumb ===================== */
+    .breadcrumb-bar {
+      background: #f6f6f6;
+      padding: 14px 0;
+      border-bottom: 1px solid #eee;
     }
-    @media (max-width:767px){
-      .detail-hero{padding:50px 0 40px}
-      .detail-hero .hero-copy h1{font-size:32px}
-      .detail-hero .hero-description{font-size:16px}
-      .detail-hero .hero-visual{min-height:280px}
-      .detail-hero .visual-cycle-box{width:120px;height:120px}
-      .detail-hero .visual-cycle-box i{font-size:48px}
-      .revision-steps{grid-template-columns:repeat(2,1fr)}
-      .related-grid{grid-template-columns:1fr}
-      .detail-section h2{font-size:26px}
+    .breadcrumb-bar nav ol {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
     }
-    @media (max-width:575px){
-      .detail-hero .hero-actions{flex-direction:column}
-      .detail-hero .btn-primary-action,.detail-hero .btn-secondary-action{width:100%;justify-content:center}
-      .detail-hero .hero-copy h1{font-size:28px}
-      .revision-steps{grid-template-columns:1fr}
+    .breadcrumb-bar nav ol li + li::before {
+      content: "/";
+      padding: 0 10px;
+      color: var(--color-secondary);
+    }
+    .breadcrumb-bar nav ol a {
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .breadcrumb-bar nav ol a:hover {
+      color: var(--color-primary);
+    }
+    .breadcrumb-bar nav ol li:last-child {
+      color: #999;
+    }
+
+    /* ===================== Page Sections ===================== */
+    .page-section {
+      padding: 80px 0;
+    }
+    .page-section + .page-section {
+      border-top: 1px solid #f0f0f0;
+    }
+    .page-section.bg-soft {
+      background: #f8f9fa;
+    }
+    .page-section h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: #182638;
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+    .page-section .section-subtitle {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #667085;
+      max-width: 620px;
+    }
+    .page-section p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 16px;
+    }
+    .section-center {
+      text-align: center;
+    }
+    .section-center .section-subtitle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ===================== Hero ===================== */
+    .rp-hero {
+      background: #FFF9F6;
+      padding: 80px 0 70px;
+      overflow: hidden;
+    }
+    .rp-hero .hero-grid {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+    }
+    .rp-hero .hero-left {
+      flex: 0 0 55%;
+      max-width: 600px;
+    }
+    .rp-hero .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #D94A2B;
+      margin-bottom: 18px;
+    }
+    /* .rp-hero .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 2px;
+      background: #D94A2B;
+      border-radius: 1px;
+    } */
+    .rp-hero .hero-left h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 44px;
+      font-weight: 800;
+      line-height: 1.15;
+      color: #182638;
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
+    }
+    .rp-hero .hero-left .hero-desc {
+      font-size: 17px;
+      line-height: 1.75;
+      color: #667085;
+      max-width: 520px;
+      margin-bottom: 28px;
+    }
+    .rp-hero .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .rp-hero .btn-hero-primary,
+    .rp-hero .btn-hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 14px 30px;
+      border-radius: 50px;
+      transition: all 0.35s ease;
+      text-decoration: none;
+      line-height: 1.2;
+    }
+    .rp-hero .btn-hero-primary {
+      color: #fff;
+      background: #D94A2B;
+      border: 2px solid #D94A2B;
+    }
+    .rp-hero .btn-hero-primary:hover {
+      background: #c03d20;
+      border-color: #c03d20;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(217,74,43,0.25);
+      color: #fff;
+    }
+    .rp-hero .btn-hero-secondary {
+      color: #D94A2B;
+      background: transparent;
+      border: 2px solid #D94A2B;
+    }
+    .rp-hero .btn-hero-secondary:hover {
+      background: rgba(217,74,43,0.06);
+      transform: translateY(-2px);
+      color: #c03d20;
+      border-color: #c03d20;
+    }
+    .rp-hero .btn-hero-primary i,
+    .rp-hero .btn-hero-secondary i {
+      font-size: 16px;
+      transition: transform 0.35s ease;
+    }
+    .rp-hero .btn-hero-primary:hover i,
+    .rp-hero .btn-hero-secondary:hover i {
+      transform: translateX(3px);
+    }
+
+    /* Hero Visual */
+    .rp-hero .hero-right {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 420px;
+    }
+    .rp-hero .hero-image {
+      width: 100%;
+      max-width: 820px;
+      height: auto;
+      object-fit: contain;
+    }
+    .rp-hero .hero-bg-circle {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(142,68,173,0.05) 0%, rgba(217,74,43,0.04) 40%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .rp-hero .hero-visual-card {
+      width: 170px;
+      height: 170px;
+      background: #fff;
+      border-radius: 36px;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      border: 1px solid rgba(142,68,173,0.1);
+    }
+    .rp-hero .hero-visual-card i {
+      font-size: 68px;
+      color: #8E44AD;
+    }
+    .rp-hero .hero-float-tag {
+      position: absolute;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 3;
+      white-space: nowrap;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #182638;
+      border: 1px solid #f0f0f0;
+    }
+    .rp-hero .hero-float-tag i {
+      font-size: 16px;
+      line-height: 0;
+    }
+    .rp-hero .hft-feedback { top: 8%; left: 50%; transform: translateX(-50%); }
+    .rp-hero .hft-feedback i { color: #D94A2B; }
+    .rp-hero .hft-review { top: 40%; left: 0; }
+    .rp-hero .hft-review i { color: #8E44AD; }
+    .rp-hero .hft-refine { top: 40%; right: 0; }
+    .rp-hero .hft-refine i { color: #D94A2B; }
+    .rp-hero .hft-final { bottom: 10%; left: 50%; transform: translateX(-50%); }
+    .rp-hero .hft-final i { color: #2D6A4F; }
+
+    /* ===================== Two-Column Content ===================== */
+    .rp-content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .rp-content-left h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: #182638;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .rp-content-left .accent-line {
+      width: 40px;
+      height: 3px;
+      background: #D94A2B;
+      border-radius: 2px;
+      margin-top: 16px;
+    }
+    .rp-content-right p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 16px;
+    }
+    .rp-content-right p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    /* Revision Philosophy Callout */
+    .revision-callout {
+      background: #FFF9F6;
+      border-left: 4px solid #8E44AD;
+      padding: 24px 28px;
+      border-radius: 0 12px 12px 0;
+      margin: 28px 0 0;
+      position: relative;
+    }
+    .revision-callout::before {
+      content: '\201C';
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      font-size: 40px;
+      line-height: 1;
+      color: #8E44AD;
+      opacity: 0.2;
+      font-family: Georgia, serif;
+    }
+    .revision-callout p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #182638;
+      margin-bottom: 0;
+      padding-left: 24px;
+    }
+    .revision-callout strong {
+      font-weight: 700;
+    }
+
+    /* ===================== Revision Process Timeline ===================== */
+    .revision-timeline {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+      position: relative;
+    }
+    .revision-timeline::before {
+      content: '';
+      position: absolute;
+      top: 26px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: #eee;
+      z-index: 0;
+    }
+    .revision-step {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .revision-step .step-num {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #8E44AD;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      border: 4px solid #f8f9fa;
+      position: relative;
+      z-index: 2;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+    .revision-step:hover .step-num {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(142,68,173,0.2);
+      background: #7B3F9E;
+    }
+    .revision-step .step-icon {
+      margin-bottom: 12px;
+    }
+    .revision-step .step-icon i {
+      font-size: 22px;
+      color: #8E44AD;
+    }
+    .revision-step h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #182638;
+      margin-bottom: 8px;
+    }
+    .revision-step p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #777;
+      margin-bottom: 0;
+      max-width: 200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ===================== Feature Cards ===================== */
+    .expect-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 36px;
+    }
+    .expect-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 14px;
+      padding: 28px 24px;
+      transition: all 0.35s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .expect-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.06);
+      border-color: transparent;
+    }
+    .expect-card .ec-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(142,68,173,0.08);
+      color: #8E44AD;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+      transition: background 0.3s ease;
+    }
+    .expect-card:hover .ec-icon {
+      background: rgba(142,68,173,0.14);
+    }
+    .expect-card .ec-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #8E44AD;
+      margin-bottom: 4px;
+    }
+    .expect-card h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #182638;
+      margin-bottom: 6px;
+    }
+    .expect-card p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: #666;
+      margin-bottom: 0;
+    }
+
+    /* ===================== Related Cards ===================== */
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .related-card {
+      display: block;
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 14px;
+      padding: 28px 24px;
+      text-decoration: none;
+      transition: all 0.35s ease;
+      height: 100%;
+    }
+    .related-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+      border-color: transparent;
+      text-decoration: none;
+    }
+    .related-card .rc-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 22px;
+    }
+    .related-card:nth-child(1) .rc-icon { background: rgba(217,74,43,0.08); color: #D94A2B; }
+    .related-card:nth-child(2) .rc-icon { background: rgba(217,74,43,0.08); color: #D94A2B; }
+    .related-card:nth-child(3) .rc-icon { background: rgba(45,106,79,0.08); color: #2D6A4F; }
+    .related-card h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #182638;
+      margin-bottom: 8px;
+      transition: color 0.3s ease;
+    }
+    .related-card:hover h4 {
+      color: var(--color-primary);
+    }
+    .related-card p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+    .related-card .rc-link {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .related-card .rc-link i {
+      transition: transform 0.3s ease;
+    }
+    .related-card:hover .rc-link i {
+      transform: translateX(4px);
+    }
+
+    /* ===================== CTA Final ===================== */
+    .cta-final {
+      background: var(--color-primary);
+      padding: 80px 0;
+      text-align: center;
+      color: #fff;
+    }
+    .cta-final h2 {
+      font-family: 'Montserrat', sans-serif;
+      color: #fff;
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .cta-final p {
+      color: rgba(255,255,255,0.9);
+      font-size: 17px;
+      max-width: 620px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+    .cta-final .cta-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-final .btn-cta-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 36px;
+      border-radius: 50px;
+      background: #fff;
+      color: var(--color-primary);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+    .cta-final .btn-cta-primary:hover {
+      background: rgba(255,255,255,0.9);
+      transform: translateY(-2px);
+      color: var(--color-primary);
+    }
+    .cta-final .btn-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 36px;
+      border-radius: 50px;
+      background: transparent;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      border: 2px solid rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+    .cta-final .btn-cta-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: #fff;
+      color: #fff;
+    }
+
+    /* ===================== Responsive ===================== */
+    @media (max-width: 991px) {
+      .rp-hero .hero-grid {
+        flex-direction: column;
+        gap: 40px;
+      }
+      .rp-hero .hero-left {
+        flex: none;
+        max-width: 100%;
+      }
+      .rp-hero .hero-left h1 {
+        font-size: 36px;
+      }
+      .rp-hero .hero-right {
+        min-height: auto;
+        width: 100%;
+      }
+      .rp-hero .hero-image {
+        max-width: 600px;
+      }
+      .rp-content-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .revision-timeline {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+      }
+      .revision-timeline::before {
+        display: none;
+      }
+      .expect-grid {
+        grid-template-columns: 1fr;
+      }
+      .related-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 767px) {
+      .page-section {
+        padding: 60px 0;
+      }
+      .rp-hero {
+        padding: 50px 0 40px;
+      }
+      .rp-hero .hero-left h1 {
+        font-size: 32px;
+      }
+      .rp-hero .hero-left .hero-desc {
+        font-size: 16px;
+      }
+      .rp-hero .hero-right {
+        min-height: auto;
+        justify-content: center;
+        padding: 0 16px;
+      }
+      .rp-hero .hero-image {
+        max-width: 100%;
+      }
+      }
+      .rp-hero .hero-float-tag {
+        display: none;
+      }
+      .page-section h2 {
+        font-size: 28px;
+      }
+      .revision-timeline {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+      .expect-grid {
+        gap: 20px;
+      }
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+      .cta-final h2 {
+        font-size: 28px;
+      }
+    }
+    @media (max-width: 575px) {
+      .rp-hero .hero-left h1 {
+        font-size: 28px;
+      }
+      .rp-hero .hero-actions {
+        flex-direction: column;
+      }
+      .rp-hero .btn-hero-primary,
+      .rp-hero .btn-hero-secondary {
+        width: 100%;
+        justify-content: center;
+      }
+      .revision-timeline {
+        grid-template-columns: 1fr;
+      }
+      .expect-grid {
+        grid-template-columns: 1fr;
+      }
+      .cta-final .cta-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+      .cta-final .btn-cta-primary,
+      .cta-final .btn-cta-secondary {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center;
+      }
     }
   </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "SOP Revision and Editing Services",
+    "provider": {
+      "@type": "Organization",
+      "name": "nep.SOP",
+      "url": "https://nepsop.com.np/"
+    },
+    "description": "Collaborative SOP revision process at NEPSOP. After reviewing your initial draft, you can share your feedback and we will refine the document to better reflect your story and goals."
+  }
+  </script>
 </head>
+
 <body>
 
-    <section id="topbar" class="topbar d-flex align-items-center">
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="topbar d-flex align-items-center">
     <div class="container d-flex justify-content-center justify-content-md-between">
       <div class="contact-info d-flex align-items-center">
         <i class="bi bi-envelope d-flex align-items-center"><a
@@ -151,16 +757,9 @@
       </div>
     </div>
   </section><!-- End Top Bar -->
-      <div class="social-links d-none d-md-flex align-items-center">
-        <a href="https://www.facebook.com/nep.sopwrite" target="_blank" class="facebook" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-        <a href="https://www.instagram.com/nep.sop/" target="_blank" class="instagram" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-        <a href="https://wa.me/9779861935709/?text=Hi%20there!%20Anyone%20up%20for%20help?#" target="_blank" class="whatsapp" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
-      </div>
-    </div>
-  </section>
 
-    <header id="header" class="header d-flex align-items-center">
-
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
         <span class="logo-text">nep.SOP</span>
@@ -178,25 +777,24 @@
               <li><a href="uk-sop.html">UK SOP</a></li>
               <li><a href="germany-sop.html">Germany SOP</a></li>
               <li><a href="malta-sop.html">Malta SOP</a></li>
+              <li><a href="dependent-visa-sop.html">Dependent Visa</a></li>
             </ul>
           </li>
           <li><a href="why-choose-nepsop.html">Why Us?</a></li>
-          <li><a href="dependent-visa-sop.html">Dependent Visa</a></li>
-
+          <li><a href="blogs.html">Blog</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#contact">Contact Us</a></li>
         </ul>
       </nav><!-- .navbar -->
-
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>  
-
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
     </div>
   </header><!-- End Header -->
 
   <main id="main">
 
-    <div class="breadcrumb-custom">
+    <!-- ======= Breadcrumb ======= -->
+    <div class="breadcrumb-bar">
       <div class="container">
         <nav aria-label="Breadcrumb">
           <ol>
@@ -208,70 +806,81 @@
       </div>
     </div>
 
-    <section class="detail-hero">
+    <!-- ======= Hero ======= -->
+    <section class="rp-hero">
       <div class="container">
-        <div class="hero-content">
-          <div class="hero-copy" data-aos="fade-up" data-aos-delay="100">
-            <span class="hero-eyebrow">BENEFIT DETAIL</span>
+        <div class="hero-grid">
+          <div class="hero-left" data-aos="fade-up" data-aos-delay="100">
+            <span class="hero-eyebrow">Benefit Detail</span>
             <h1>Your Feedback Matters: A Collaborative SOP Revision Process</h1>
-            <p class="hero-description">After reviewing your initial draft, you may want adjustments to better reflect your story. We work with you to refine your SOP and ensure the final document accurately represents your background and goals.</p>
+            <p class="hero-desc">After reviewing your initial draft, you may want adjustments to better reflect your story. We work with you to refine your SOP and ensure the final document accurately represents your background and goals.</p>
             <div class="hero-actions">
-              <a href="https://wa.me/9779861935709/?text=Hi%20there!%20I'm%20interested%20in%20SOP%20writing%20services" target="_blank" class="btn-primary-action">Get Started</a>
-              <a href="why-choose-nepsop.html" class="btn-secondary-action">Explore All Benefits</a>
+              <a href="https://wa.me/9779861935709/?text=Hi%20there!%20I'm%20interested%20in%20SOP%20writing%20services" target="_blank" class="btn-hero-primary">Get Started <i class="bi bi-arrow-right"></i></a>
+              <a href="why-choose-nepsop.html" class="btn-hero-secondary">Explore All Benefits <i class="bi bi-arrow-right"></i></a>
             </div>
           </div>
-          <div class="hero-visual" data-aos="fade-up" data-aos-delay="200">
-            <div class="visual-bg-shape"></div>
-            <div class="visual-cycle-box"><i class="bi bi-arrow-repeat"></i></div>
-            <div class="visual-cycle-dot vcd-1"></div>
-            <div class="visual-cycle-dot vcd-2"></div>
-            <div class="visual-cycle-dot vcd-3"></div>
+          <div class="hero-right" data-aos="fade-up" data-aos-delay="200">
+            <img src="assets/img/whyUs/revision.png" alt="SOP Revision Process" class="hero-image">
           </div>
         </div>
       </div>
     </section>
 
-    <section class="detail-section">
+    <!-- ======= A Collaborative Approach ======= -->
+    <section class="page-section">
       <div class="container">
-        <div class="content-width" data-aos="fade-up">
-          <h2>A Collaborative Approach to Refining Your SOP</h2>
-          <p>We believe that the best Statements of Purpose are developed through collaboration. Your knowledge of your own background and goals, combined with our writing expertise, creates a document that is both authentic and professionally presented.</p>
-          <p>After we deliver the initial draft of your SOP, you have the opportunity to review it carefully and share your feedback. We take your input seriously and make revisions to ensure the document reflects your story accurately.</p>
-          <p>This collaborative process helps ensure that the final SOP is something you feel confident submitting with your application. Your feedback guides each round of revisions, and we continue refining until you are satisfied with the result.</p>
-          <div class="highlight-box">
-            <p><strong>Our revision philosophy:</strong> Your knowledge of your own story, combined with our writing expertise, creates an SOP that is both authentic and professionally presented. We work together to get it right.</p>
+        <div class="rp-content-grid" data-aos="fade-up">
+          <div class="rp-content-left">
+            <h2>A Collaborative Approach to Refining Your SOP</h2>
+            <div class="accent-line"></div>
+          </div>
+          <div class="rp-content-right">
+            <p>We believe that the best Statements of Purpose are developed through collaboration. Your knowledge of your own background and goals, combined with our writing expertise, creates a document that is both authentic and professionally presented.</p>
+            <p>After we deliver the initial draft of your SOP, you have the opportunity to review it carefully and share your feedback. We take your input seriously and make revisions to ensure the document reflects your story accurately.</p>
+            <p>This collaborative process helps ensure that the final SOP is something you feel confident submitting with your application. Your feedback guides each round of revisions, and we continue refining until you are satisfied with the result.</p>
+            <div class="revision-callout">
+              <p><strong>Our revision philosophy:</strong> Your knowledge of your own story, combined with our writing expertise, creates an SOP that is both authentic and professionally presented. We work together to get it right.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="detail-section bg-soft">
-      <div class="container" data-aos="fade-up">
-        <h2 class="text-center mb-4">Our Revision Process</h2>
-        <p class="text-center mb-4" style="color:#666;max-width:550px;margin:0 auto;font-size:16px;">A straightforward process designed around your feedback and satisfaction</p>
-        <div class="revision-steps">
-          <div class="rev-step">
-            <div class="rs-num">1</div>
+    <!-- ======= Our Revision Process ======= -->
+    <section class="page-section bg-soft">
+      <div class="container">
+        <div class="section-center" data-aos="fade-up">
+          <h2>Our Revision Process</h2>
+          <p class="section-subtitle">A straightforward process designed around your feedback and satisfaction.</p>
+        </div>
+        <div class="revision-timeline" data-aos="fade-up" data-aos-delay="100">
+          <div class="revision-step">
+            <div class="step-num">01</div>
+            <div class="step-icon"><i class="bi bi-file-earmark-text"></i></div>
             <h4>Initial Draft</h4>
-            <p>We deliver your first SOP draft based on the information you shared with our team.</p>
+            <p>We deliver your initial SOP draft based on the information you shared with our team.</p>
           </div>
-          <div class="rev-step">
-            <div class="rs-num">2</div>
+          <div class="revision-step">
+            <div class="step-num">02</div>
+            <div class="step-icon"><i class="bi bi-eye"></i></div>
             <h4>Student Review</h4>
             <p>You review the draft and identify any areas you would like to be adjusted or refined.</p>
           </div>
-          <div class="rev-step">
-            <div class="rs-num">3</div>
+          <div class="revision-step">
+            <div class="step-num">03</div>
+            <div class="step-icon"><i class="bi bi-chat-left-text"></i></div>
             <h4>Feedback</h4>
-            <p>You share your specific feedback, suggestions, and any changes you would like us to make.</p>
+            <p>You share your specific feedback, suggestions, and anything you would like us to change.</p>
           </div>
-          <div class="rev-step">
-            <div class="rs-num">4</div>
+          <div class="revision-step">
+            <div class="step-num">04</div>
+            <div class="step-icon"><i class="bi bi-pencil-square"></i></div>
             <h4>Revisions</h4>
-            <p>Our writer updates the SOP based on your feedback and prepares the revised version.</p>
+            <p>Our writers update the SOP based on your feedback and prepare the revised version.</p>
           </div>
-          <div class="rev-step">
-            <div class="rs-num">5</div>
+          <div class="revision-step">
+            <div class="step-num">05</div>
+            <div class="step-icon"><i class="bi bi-check2-all"></i></div>
             <h4>Final Refinement</h4>
             <p>You review the revised draft and we make any final adjustments needed.</p>
           </div>
@@ -279,37 +888,42 @@
       </div>
     </section>
 
-    <section class="detail-section">
+    <!-- ======= What You Can Expect ======= -->
+    <section class="page-section">
       <div class="container">
-        <div class="content-width" data-aos="fade-up">
+        <div class="section-center" data-aos="fade-up">
           <h2>What You Can Expect From Our Revision Process</h2>
-          <p>Our revision process is designed to be straightforward and student-focused. We want you to feel confident that your SOP accurately represents your background, goals, and motivations.</p>
+          <p class="section-subtitle">Our revision process is designed to be straightforward and student-focused. We want you to feel confident that your SOP accurately represents your background, goals, and motivations.</p>
         </div>
-        <div class="feedback-cols" data-aos="fade-up" data-aos-delay="100">
-          <div class="fc-item">
-            <div class="fc-icon"><i class="bi bi-chat-dots"></i></div>
-            <div class="fc-text">
+        <div class="expect-grid" data-aos="fade-up" data-aos-delay="100">
+          <div class="expect-card">
+            <div class="ec-icon"><i class="bi bi-chat-dots"></i></div>
+            <div>
+              <div class="ec-num">01</div>
               <h4>Clear Communication</h4>
               <p>We make it easy for you to share your feedback and suggestions about your SOP draft.</p>
             </div>
           </div>
-          <div class="fc-item">
-            <div class="fc-icon"><i class="bi bi-pencil-square"></i></div>
-            <div class="fc-text">
+          <div class="expect-card">
+            <div class="ec-icon"><i class="bi bi-pencil-square"></i></div>
+            <div>
+              <div class="ec-num">02</div>
               <h4>Thoughtful Revisions</h4>
               <p>We carefully consider your feedback and make revisions that improve the document while maintaining quality.</p>
             </div>
           </div>
-          <div class="fc-item">
-            <div class="fc-icon"><i class="bi bi-clock"></i></div>
-            <div class="fc-text">
+          <div class="expect-card">
+            <div class="ec-icon"><i class="bi bi-clock"></i></div>
+            <div>
+              <div class="ec-num">03</div>
               <h4>Timely Updates</h4>
               <p>We process revisions promptly so your application timeline is not affected.</p>
             </div>
           </div>
-          <div class="fc-item">
-            <div class="fc-icon"><i class="bi bi-check2-all"></i></div>
-            <div class="fc-text">
+          <div class="expect-card">
+            <div class="ec-icon"><i class="bi bi-check2-all"></i></div>
+            <div>
+              <div class="ec-num">04</div>
               <h4>Satisfaction Focus</h4>
               <p>Our goal is to deliver a final SOP that you are confident submitting with your application.</p>
             </div>
@@ -318,11 +932,14 @@
       </div>
     </section>
 
-    <section class="detail-section">
-      <div class="container" data-aos="fade-up">
-        <h2 class="text-center">Explore More About NEPSOP</h2>
-        <p class="text-center" style="color:#666;max-width:550px;margin:0 auto;font-size:16px;">Discover how our SOP writing services support your application journey</p>
-        <div class="related-grid">
+    <!-- ======= Explore More ======= -->
+    <section class="page-section bg-soft">
+      <div class="container">
+        <div class="section-center" data-aos="fade-up">
+          <h2>Explore More About NEPSOP</h2>
+          <p class="section-subtitle">Discover how our SOP writing services support your application journey.</p>
+        </div>
+        <div class="related-grid" data-aos="fade-up" data-aos-delay="100">
           <a href="100-personalized-sop-writing.html" class="related-card">
             <div class="rc-icon"><i class="bi bi-pencil"></i></div>
             <h4>Personalized SOP Writing</h4>
@@ -345,21 +962,22 @@
       </div>
     </section>
 
-    <section class="cta-final">
+    <!-- ======= Final CTA ======= -->
+    <!-- <section class="cta-final">
       <div class="container" data-aos="fade-up">
         <h2>Ready to Start Your SOP?</h2>
         <p>Share your academic information and goals with our team. We will develop a personalized draft, and you can provide feedback to shape the final document.</p>
         <div class="cta-actions">
-          <a href="https://wa.me/9779861935709/?text=Hi%20there!%20I'm%20interested%20in%20SOP%20writing%20services" target="_blank" class="btn-cta-primary">Get Started</a>
-          <a href="why-choose-nepsop.html" class="btn-cta-secondary">Explore All Benefits</a>
+          <a href="https://wa.me/9779861935709/?text=Hi%20there!%20I'm%20interested%20in%20SOP%20writing%20services" target="_blank" class="btn-cta-primary">Get Started <i class="bi bi-arrow-right"></i></a>
+          <a href="why-choose-nepsop.html" class="btn-cta-secondary">Explore All Benefits <i class="bi bi-arrow-right"></i></a>
         </div>
       </div>
-    </section>
+    </section> -->
 
   </main>
 
-    <footer id="footer" class="footer">
-
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
     <div class="container">
       <div class="row gy-4">
         <div class="col-lg-5 col-md-12 footer-info">
@@ -408,7 +1026,6 @@
             <strong>Hours:</strong> 24/7 Support<br>
           </p>
         </div>
-
       </div>
     </div>
 
@@ -417,7 +1034,6 @@
         &copy; Copyright <strong><span>nep.SOP</span></strong>. All Rights Reserved.
       </div>
     </div>
-
   </footer><!-- End Footer -->
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

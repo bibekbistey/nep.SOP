@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Create Blog | NEPSOP Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Favicons -->
+  <link href="../assets/favicon/apple-icon.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Admin CSS -->
+  <link href="../assets/css/admin.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <!-- Admin Navbar -->
+  <nav class="admin-navbar">
+    <a href="/admin/index.html" class="admin-brand">
+      <i class="bi bi-grid-1x2-fill"></i>
+      NEPSOP Admin
+      <span>/ Create Blog</span>
+    </a>
+    <div class="admin-navbar-right">
+      <span class="admin-email" id="adminEmail"></span>
+      <button class="admin-logout-btn" id="logoutBtn">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="admin-container">
+
+    <!-- Page Header -->
+    <div class="admin-page-header">
+      <div>
+        <h1><i class="bi bi-plus-circle"></i> Create New Blog</h1>
+        <p class="admin-page-subtitle">Write and publish a new article for the NEPSOP website.</p>
+      </div>
+      <a href="/admin/blogs.html" class="admin-btn admin-btn-outline">
+        <i class="bi bi-arrow-left"></i> Back to Blogs
+      </a>
+    </div>
+
+    <!-- Blog Form -->
+    <div class="admin-card">
+      <form id="blogForm">
+
+        <!-- Title & Slug -->
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="title">Blog Title *</label>
+          <input class="admin-form-input" type="text" id="title" name="title" required placeholder="How to Write a Winning SOP for Canada" style="font-size: 16px; padding: 12px 14px;">
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="slug">URL Slug</label>
+          <input class="admin-form-input" type="text" id="slug" name="slug" placeholder="auto-generated-from-title">
+          <p class="admin-form-hint">Auto-generated from title. You can edit it manually.</p>
+        </div>
+
+        <!-- Featured Image -->
+        <div class="admin-form-group">
+          <label class="admin-form-label">Featured Image</label>
+          <div class="admin-upload-area" id="uploadArea">
+            <div id="uploadPlaceholder">
+              <i class="bi bi-cloud-arrow-up"></i>
+              <p>Click to upload or drag and drop</p>
+              <small>PNG, JPG or WEBP — Max 5MB</small>
+            </div>
+            <div id="uploadPreview" style="display: none;">
+              <img class="admin-upload-preview" id="previewImg" src="" alt="Featured image preview">
+              <button type="button" class="admin-upload-remove" id="removeImage">
+                <i class="bi bi-x-lg"></i> Remove image
+              </button>
+            </div>
+          </div>
+          <input type="file" id="imageFileInput" accept="image/png,image/jpeg,image/webp" style="display: none;">
+          <input type="hidden" id="featuredImage" name="featured_image">
+          <p class="admin-form-hint" id="imageHint">Or paste a direct image URL below.</p>
+          <input class="admin-form-input" type="url" id="featuredImageUrl" name="featured_image_url" placeholder="https://example.com/image.jpg" style="margin-top: 8px; display: none;">
+        </div>
+
+        <!-- Excerpt -->
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="excerpt">Short Description / Excerpt</label>
+          <textarea class="admin-form-input" id="excerpt" name="excerpt" rows="3" placeholder="A brief summary of the blog post..." style="min-height: 80px; resize: vertical;"></textarea>
+        </div>
+
+        <!-- Author -->
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="author">Author</label>
+          <input class="admin-form-input" type="text" id="author" name="author" placeholder="NEPSOP Team">
+        </div>
+
+        <!-- Content Editor -->
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="content">Blog Content *</label>
+          <p class="admin-form-hint" style="margin-bottom: 8px;">HTML is supported. You can use headings, paragraphs, lists, images, and links.</p>
+          <div class="admin-editor-wrap">
+            <div class="admin-editor-toolbar" id="editorToolbar">
+              <button type="button" data-tag="h2" title="Heading"><i class="bi bi-type-h2"></i></button>
+              <button type="button" data-tag="h3" title="Subheading"><i class="bi bi-type-h3"></i></button>
+              <div class="separator"></div>
+              <button type="button" data-tag="p" title="Paragraph"><i class="bi bi-paragraph"></i></button>
+              <button type="button" data-tag="ul" title="Bullet List"><i class="bi bi-list-ul"></i></button>
+              <button type="button" data-tag="ol" title="Numbered List"><i class="bi bi-list-ol"></i></button>
+              <div class="separator"></div>
+              <button type="button" data-tag="bold" title="Bold"><i class="bi bi-type-bold"></i></button>
+              <button type="button" data-tag="italic" title="Italic"><i class="bi bi-type-italic"></i></button>
+              <button type="button" data-tag="link" title="Insert Link"><i class="bi bi-link-45deg"></i></button>
+              <button type="button" data-tag="img" title="Insert Image"><i class="bi bi-image"></i></button>
+            </div>
+            <textarea class="admin-form-textarea" id="content" name="content" placeholder="Write your blog content here. HTML is supported." style="min-height: 360px;"></textarea>
+          </div>
+        </div>
+
+        <!-- SEO Section -->
+        <div style="padding-top: 8px; margin-bottom: 20px;">
+          <h3 style="font-family: var(--admin-font-heading); font-size: 15px; font-weight: 700; margin: 0 0 4px; color: var(--admin-text);">
+            <i class="bi bi-search" style="color: var(--admin-primary);"></i> SEO Settings
+          </h3>
+          <p class="admin-form-hint" style="margin-bottom: 16px;">Optional — improve search engine visibility for this blog post.</p>
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="seoTitle">SEO Title</label>
+          <input class="admin-form-input" type="text" id="seoTitle" name="seo_title" placeholder="Custom title for search engines (defaults to blog title)">
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="seoDescription">SEO Meta Description</label>
+          <textarea class="admin-form-input" id="seoDescription" name="seo_description" rows="2" placeholder="Brief description for search engine results..." style="min-height: 60px; resize: vertical;"></textarea>
+        </div>
+
+        <!-- Status -->
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="status">Publish Status</label>
+          <select class="admin-form-input admin-form-select" id="status" name="status">
+            <option value="draft">Draft — Save without publishing</option>
+            <option value="published">Published — Live on the website</option>
+          </select>
+        </div>
+
+        <!-- Actions -->
+        <div class="admin-form-actions">
+          <button type="submit" class="admin-btn admin-btn-primary" id="submitBtn">
+            <i class="bi bi-check-lg"></i> <span id="submitBtnText">Save Blog</span>
+          </button>
+          <a href="/admin/blogs.html" class="admin-btn admin-btn-outline">Cancel</a>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <!-- Config -->
+  <script src="../assets/js/config.js"></script>
+
+  <!-- Supabase Client -->
+  <script src="../assets/js/supabase.js"></script>
+
+  <!-- Auth Module -->
+  <script src="../assets/js/auth.js"></script>
+
+  <!-- Blogs Module -->
+  <script src="../assets/js/blogs.js"></script>
+
+  <script>
+    (async function() {
+      // Protect this page
+      const session = await NEPSOP.auth.requireAuth();
+      if (!session) return;
+
+      // Show admin email
+      document.getElementById('adminEmail').textContent = session.user.email;
+
+      // Logout
+      document.getElementById('logoutBtn').addEventListener('click', async function() {
+        await NEPSOP.auth.logout();
+      });
+
+      const titleInput = document.getElementById('title');
+      const slugInput = document.getElementById('slug');
+      const form = document.getElementById('blogForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const submitBtnText = document.getElementById('submitBtnText');
+
+      let slugManuallyEdited = false;
+
+      // Auto-generate slug from title
+      slugInput.addEventListener('focus', function() {
+        if (!slugManuallyEdited && !slugInput.value) {
+          slugInput.value = NEPSOP.blogs.generateSlug(titleInput.value);
+        }
+      });
+
+      slugInput.addEventListener('input', function() {
+        slugManuallyEdited = true;
+      });
+
+      titleInput.addEventListener('input', function() {
+        if (!slugManuallyEdited) {
+          slugInput.value = NEPSOP.blogs.generateSlug(titleInput.value);
+        }
+      });
+
+      // ── Image Upload ──
+      var uploadArea = document.getElementById('uploadArea');
+      var fileInput = document.getElementById('imageFileInput');
+      var featuredImageInput = document.getElementById('featuredImage');
+      var uploadPlaceholder = document.getElementById('uploadPlaceholder');
+      var uploadPreview = document.getElementById('uploadPreview');
+      var previewImg = document.getElementById('previewImg');
+      var removeImageBtn = document.getElementById('removeImage');
+      var imageUrlInput = document.getElementById('featuredImageUrl');
+      var imageHint = document.getElementById('imageHint');
+
+      uploadArea.addEventListener('click', function() {
+        fileInput.click();
+      });
+
+      uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+      });
+
+      uploadArea.addEventListener('dragleave', function() {
+        uploadArea.classList.remove('dragover');
+      });
+
+      uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        var files = e.dataTransfer.files;
+        if (files.length > 0) handleImageFile(files[0]);
+      });
+
+      fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) handleImageFile(this.files[0]);
+      });
+
+      function handleImageFile(file) {
+        if (!file.type.match(/image\/(png|jpeg|webp)/)) {
+          showToast('Please upload a PNG, JPG, or WEBP image.', 'error');
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          showToast('Image must be under 5MB.', 'error');
+          return;
+        }
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          previewImg.src = e.target.result;
+          featuredImageInput.value = e.target.result;
+          uploadPlaceholder.style.display = 'none';
+          uploadPreview.style.display = 'block';
+          uploadArea.classList.add('has-image');
+          imageUrlInput.style.display = 'none';
+          imageHint.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+      }
+
+      removeImageBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        previewImg.src = '';
+        featuredImageInput.value = '';
+        fileInput.value = '';
+        uploadPlaceholder.style.display = '';
+        uploadPreview.style.display = 'none';
+        uploadArea.classList.remove('has-image');
+        imageUrlInput.style.display = '';
+        imageHint.style.display = '';
+      });
+
+      // ── Editor Toolbar ──
+      var toolbar = document.getElementById('editorToolbar');
+      var contentArea = document.getElementById('content');
+
+      toolbar.querySelectorAll('button').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var tag = this.dataset.tag;
+          var start = contentArea.selectionStart;
+          var end = contentArea.selectionEnd;
+          var selected = contentArea.value.substring(start, end);
+          var before = contentArea.value.substring(0, start);
+          var after = contentArea.value.substring(end);
+          var insert = '';
+
+          switch(tag) {
+            case 'h2': insert = '<h2>' + (selected || 'Heading') + '</h2>'; break;
+            case 'h3': insert = '<h3>' + (selected || 'Subheading') + '</h3>'; break;
+            case 'p': insert = '<p>' + (selected || 'Paragraph text...') + '</p>'; break;
+            case 'ul': insert = '<ul>\n  <li>' + (selected || 'List item') + '</li>\n</ul>'; break;
+            case 'ol': insert = '<ol>\n  <li>' + (selected || 'List item') + '</li>\n</ol>'; break;
+            case 'bold': insert = '<strong>' + (selected || 'bold text') + '</strong>'; break;
+            case 'italic': insert = '<em>' + (selected || 'italic text') + '</em>'; break;
+            case 'link': insert = '<a href="' + (selected || 'https://') + '">link text</a>'; break;
+            case 'img': insert = '<img src="' + (selected || 'https://') + '" alt="Image description">'; break;
+          }
+
+          contentArea.value = before + insert + after;
+          contentArea.focus();
+          contentArea.selectionStart = contentArea.selectionEnd = start + insert.length;
+        });
+      });
+
+      // ── Form Submission ──
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        var title = titleInput.value.trim();
+        var slug = slugInput.value.trim() || NEPSOP.blogs.generateSlug(title);
+
+        if (!title) {
+          showToast('Please enter a blog title.', 'error');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtnText.textContent = 'Saving...';
+
+        try {
+          var featuredImage = featuredImageInput.value || imageUrlInput.value.trim() || '';
+
+          var blog = await NEPSOP.blogs.createBlog({
+            title: title,
+            slug: slug,
+            excerpt: document.getElementById('excerpt').value.trim(),
+            featured_image: featuredImage,
+            author: document.getElementById('author').value.trim(),
+            content: contentArea.value,
+            status: document.getElementById('status').value,
+          });
+
+          showToast('Blog created successfully!', 'success');
+
+          // Redirect to edit page after short delay
+          setTimeout(function() {
+            window.location.href = '/admin/blog-edit.html?id=' + blog.id;
+          }, 1000);
+        } catch (err) {
+          console.error('[NEPSOP] Create blog error:', err);
+          showToast('Unable to save blog. Please try again.', 'error');
+          submitBtn.disabled = false;
+          submitBtnText.textContent = 'Save Blog';
+        }
+      });
+
+      // ── Toast ──
+      function showToast(message, type) {
+        var existing = document.querySelector('.admin-toast');
+        if (existing) existing.remove();
+
+        var icon = type === 'success' ? 'check-circle-fill' : 'exclamation-circle-fill';
+        var toast = document.createElement('div');
+        toast.className = 'admin-toast admin-toast-' + type;
+        toast.innerHTML = '<i class="bi bi-' + icon + '"></i> ' + message;
+        document.body.appendChild(toast);
+
+        setTimeout(function() {
+          toast.remove();
+        }, 3500);
+      }
+    })();
+  </script>
+
+</body>
+</html>

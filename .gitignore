@@ -1,1 +1,6 @@
 .freebuff/
+node_modules/
+.env
+.env.*
+!.env.example
+assets/js/config.js
