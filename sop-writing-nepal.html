@@ -25,7 +25,7 @@
   <meta name="twitter:image" content="https://nepsop.com.np/assets/img/neop.sop.png">
 
   <link href="assets/favicon/apple-icon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/favicon/apple-icon-180x180.png" rel="apple-touch-icon">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -316,6 +316,14 @@
     }
   </style>
 
+  <!-- Google Analytics 4 (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LBKF3DY60F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LBKF3DY60F');
+  </script>
 </head>
 
 <body>
@@ -363,10 +371,18 @@
 
             </ul>
           </li>
-          <li><a href="why-choose-nepsop.html">Why Us?</a></li>
+          <li class="dropdown"><a href="why-choose-nepsop.html"><span>Why Us</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="why-choose-nepsop.html">Why Choose NEPSOP?</a></li>
+              <li><a href="experienced-sop-writers.html">Experienced SOP Writers</a></li>
+              <li><a href="multi-country-sop-expertise.html">Multi-Country Expertise</a></li>
+              <li><a href="plagiarism-free-sop-writing.html">Plagiarism-Free SOP Writing</a></li>
+              <li><a href="100-personalized-sop-writing.html">100% Personalized SOPs</a></li>
+            </ul>
+          </li>
           <li><a href="blogs.html">Blog</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
         </ul>
       </nav><!-- .navbar -->
 
@@ -705,6 +721,8 @@
             <li><a href="germany-sop.html">Germany SOP</a></li>
             <li><a href="malta-sop.html">Malta SOP</a></li>
             <li><a href="dependent-visa-sop.html">Dependent Visa SOP</a></li>
+            <li><a href="sop-revisions.html">SOP Revisions</a></li>
+            <li><a href="sop-customer-support.html">SOP Customer Support</a></li>
           </ul>
         </div>
 
@@ -737,6 +755,7 @@
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/analytics.js"></script>
 
   <script type="application/ld+json">
   {
@@ -937,5 +956,26 @@
     });
   </script>
 
+  <!-- BreadcrumbList structured data (matches the visible breadcrumb) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://nepsop.com.np/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "SOP Writing Nepal",
+        "item": "https://nepsop.com.np/sop-writing-nepal.html"
+      }
+    ]
+  }
+  </script>
 </body>
 </html>

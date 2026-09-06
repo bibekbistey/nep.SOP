@@ -13,7 +13,7 @@
   <meta name="robots" content="index, follow">
 
   <link href="assets/favicon/apple-icon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/favicon/apple-icon-180x180.png" rel="apple-touch-icon">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://nepsop.com.np/experienced-sop-writers.html">
@@ -639,6 +639,14 @@
     "description": "Experienced SOP writers at NEPSOP help transform your academic journey, goals, and motivations into a compelling Statement of Purpose."
   }
   </script>
+  <!-- Google Analytics 4 (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LBKF3DY60F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LBKF3DY60F');
+  </script>
 </head>
 
 <body>
@@ -681,10 +689,18 @@
               <li><a href="dependent-visa-sop.html">Dependent Visa</a></li>
             </ul>
           </li>
-          <li><a href="why-choose-nepsop.html">Why Us?</a></li>
+          <li class="dropdown"><a href="why-choose-nepsop.html"><span>Why Us</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="why-choose-nepsop.html">Why Choose NEPSOP?</a></li>
+              <li><a href="experienced-sop-writers.html">Experienced SOP Writers</a></li>
+              <li><a href="multi-country-sop-expertise.html">Multi-Country Expertise</a></li>
+              <li><a href="plagiarism-free-sop-writing.html">Plagiarism-Free SOP Writing</a></li>
+              <li><a href="100-personalized-sop-writing.html">100% Personalized SOPs</a></li>
+            </ul>
+          </li>
           <li><a href="blogs.html">Blog</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
         </ul>
       </nav><!-- .navbar -->
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
@@ -721,7 +737,7 @@
             </div>
           </div>
           <div class="hero-right" data-aos="fade-up" data-aos-delay="200">
-            <img src="assets/img/whyUs/experienced.png" alt="Experienced SOP Writers" class="hero-image">
+            <img src="assets/img/whyUs/experienced.png" alt="Experienced SOP Writers" class="hero-image" width="1377" height="1142">
           </div>
         </div>
       </div>
@@ -940,6 +956,8 @@
             <li><a href="germany-sop.html">Germany SOP</a></li>
             <li><a href="malta-sop.html">Malta SOP</a></li>
             <li><a href="dependent-visa-sop.html">Dependent Visa SOP</a></li>
+            <li><a href="sop-revisions.html">SOP Revisions</a></li>
+            <li><a href="sop-customer-support.html">SOP Customer Support</a></li>
           </ul>
         </div>
 
@@ -970,6 +988,34 @@
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/analytics.js"></script>
 
+  <!-- BreadcrumbList structured data (matches the visible breadcrumb) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://nepsop.com.np/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Why Choose NEPSOP?",
+        "item": "https://nepsop.com.np/why-choose-nepsop.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Experienced Writers",
+        "item": "https://nepsop.com.np/experienced-sop-writers.html"
+      }
+    ]
+  }
+  </script>
 </body>
 </html>
