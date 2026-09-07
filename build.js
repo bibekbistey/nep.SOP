@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 // Load .env file for local development (Vercel injects env vars automatically)
 require('dotenv').config();
@@ -20,3 +21,15 @@ const outputPath = path.join(__dirname, 'assets', 'js', 'config.js');
 fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 fs.writeFileSync(outputPath, config, 'utf-8');
 console.log('✅ config.js generated successfully');
+
+// ---------------------------------------------------------------------------
+// Static blog pages + sitemap.xml + llms.txt
+// Runs after config generation. Requires SUPABASE_URL + SUPABASE_PUBLISHABLE_KEY
+// to fetch blog content; otherwise it skips blog pages gracefully (local dev).
+// ---------------------------------------------------------------------------
+try {
+  require('./generate-blog-pages.js');
+} catch (err) {
+  console.error('⚠️  Static blog generation failed:', err.message);
+  process.exitCode = 1;
+}

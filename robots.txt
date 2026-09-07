@@ -1,8 +1,36 @@
 User-agent: *
 Allow: /
-Allow: /assets/css/
-Allow: /assets/js/
-Allow: /assets/img/
-Allow: /assets/vendor/
+
+# AI search & assistant crawlers — allowed so AI engines can cite this site
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Training-only crawler (Common Crawl) — optional to block; kept allowed for now
+User-agent: CCBot
+Allow: /
 
 Sitemap: https://nepsop.com.np/sitemap.xml
+
+# LLM context file: https://llmstxt.org/
+# See /llms.txt for a machine-readable overview of this site.

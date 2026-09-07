@@ -195,6 +195,105 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
+   * Contact form — Web3Forms submission
+   */
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    const formMessage = document.getElementById('form-message');
+    const submitBtn = document.getElementById('submitBtn');
+    const submitIcon = submitBtn ? submitBtn.querySelector('i') : null;
+    let submitting = false;
+
+    const setMessage = (text, type) => {
+      if (!formMessage) return;
+      formMessage.innerHTML = '';
+      const cls = type === 'success' ? 'success' : 'error';
+      formMessage.className = 'form-message ' + cls;
+      const p = document.createElement('p');
+      p.textContent = text;
+      formMessage.appendChild(p);
+    };
+
+    const clearMessage = () => {
+      if (!formMessage) return;
+      formMessage.innerHTML = '';
+      formMessage.className = '';
+    };
+
+    const setSubmitting = (state) => {
+      submitting = state;
+      if (!submitBtn) return;
+      if (state) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Sending... <i class="bi bi-hourglass-split"></i>';
+        if (submitIcon) submitIcon.className = 'bi bi-hourglass-split';
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Send Inquiry <i class="bi bi-send"></i>';
+        if (submitIcon) submitIcon.className = 'bi bi-send';
+      }
+    };
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (submitting) return;
+
+      // Use browser-native validation first.
+      if (!contactForm.checkValidity()) {
+        contactForm.reportValidity();
+        return;
+      }
+
+      clearMessage();
+      setSubmitting(true);
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: new FormData(contactForm)
+        });
+
+        let result;
+        try {
+          result = await response.json();
+        } catch (parseError) {
+          console.error('Contact form: failed to parse Web3Forms response.', parseError);
+          setMessage('Something went wrong while submitting your inquiry. Please try again.', 'error');
+          setSubmitting(false);
+          return;
+        }
+
+        if (result.success) {
+          setMessage(
+            'Thank you! Your inquiry has been submitted successfully. We will get back to you shortly.',
+            'success'
+          );
+          contactForm.reset();
+          // Restore the default placeholder option after reset.
+          const destination = document.getElementById('destination');
+          const service = document.getElementById('service');
+          if (destination) destination.selectedIndex = 0;
+          if (service) service.selectedIndex = 0;
+        } else {
+          console.error('Contact form: Web3Forms reported an error.', result);
+          setMessage(
+            'Something went wrong while submitting your inquiry. Please try again.',
+            'error'
+          );
+        }
+      } catch (error) {
+        console.error('Contact form: network error.', error);
+        setMessage(
+          'Something went wrong while submitting your inquiry. Please try again.',
+          'error'
+        );
+      } finally {
+        setSubmitting(false);
+      }
+    });
+  }
+
+  /**
    * Init swiper slider with 1 slide at once in desktop view
    */
   const slides1 = document.querySelector('.slides-1');
