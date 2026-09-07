@@ -18,7 +18,7 @@
 
   <!-- Favicons -->
   <link href="assets/favicon/apple-icon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/favicon/apple-icon-180x180.png" rel="apple-touch-icon">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -58,6 +58,45 @@
   <!-- Font Awesome CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <style>
+    /* Click-to-play hero video: keeps the exact 355x615 white-framed box the iframe used */
+    .hero-video-thumb {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-video-play-btn {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      border: 0;
+      background: #000;
+      cursor: pointer;
+    }
+    .hero-video-poster {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-video-play-icon {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.92);
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+      transition: transform 0.2s ease;
+      pointer-events: none;
+    }
+    .hero-video-play-btn:hover .hero-video-play-icon {
+      transform: scale(1.08);
+    }
+  </style>
+
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
@@ -80,6 +119,49 @@
   }
   </script>
 
+  <!-- LocalBusiness structured data -->
+  <!-- TODO: Add a street address/geo only if the site owner provides a physical address (nep.SOP currently operates remotely). -->
+  <!-- TODO: Add aggregateRating only with real Google Business Profile rating data from the site owner. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "nep.SOP",
+    "url": "https://nepsop.com.np/",
+    "logo": "https://nepsop.com.np/assets/img/neop.sop.png",
+    "image": "https://nepsop.com.np/assets/img/neop.sop.png",
+    "description": "SOP writing agency in Nepal offering personalized Statement of Purpose writing and academic assignment help for Australia, Canada, USA, UK, and more. Fully online/remote service.",
+    "telephone": "+977-9861935709",
+    "email": "info@nepsop.com.np",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "NP"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "00:00",
+      "closes": "23:59"
+    },
+    "sameAs": [
+      "https://www.facebook.com/nep.sopwrite",
+      "https://www.instagram.com/nep.sop/"
+    ]
+  }
+  </script>
+
+  <!-- Google Search Console site verification -->
+  <!-- TODO: Paste the real Search Console verification meta tag here, e.g.:
+  <meta name="google-site-verification" content="REPLACE_WITH_REAL_CODE"> -->
+
+  <!-- Google Analytics 4 (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LBKF3DY60F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LBKF3DY60F');
+  </script>
 </head>
 
 <body>
@@ -120,13 +202,22 @@
               <li><a href="germany-sop.html">Germany SOP</a></li>
               <li><a href="malta-sop.html">Malta SOP</a></li>
               <li><a href="dependent-visa-sop.html">Dependent Visa SOP</a></li>
+              <li><a href="relationship-history-timeline.html">Relationship History &amp; Timeline</a></li>
 
             </ul>
           </li>
-          <li><a href="why-choose-nepsop.html">Why Us?</a></li>
+          <li class="dropdown"><a href="why-choose-nepsop.html"><span>Why Us</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="why-choose-nepsop.html">Why Choose NEPSOP?</a></li>
+              <li><a href="experienced-sop-writers.html">Experienced SOP Writers</a></li>
+              <li><a href="multi-country-sop-expertise.html">Multi-Country Expertise</a></li>
+              <li><a href="plagiarism-free-sop-writing.html">Plagiarism-Free SOP Writing</a></li>
+              <li><a href="100-personalized-sop-writing.html">100% Personalized SOPs</a></li>
+            </ul>
+          </li>
           <li><a href="blogs.html">Blog</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
         </ul>
       </nav><!-- .navbar -->
 
@@ -182,9 +273,12 @@ DM on Instagram</a>
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 d-flex justify-content-center">
-          <iframe class="video-box" data-aos="fade-left" data-aos-delay="200" width="355px" height="615px"
-            src="https://www.youtube.com/embed/JsityQp2ZQE?autoplay=1&mute=1&loop=1&playlist=JsityQp2ZQE"
-            title="nep.SOP - Statement of Purpose Writing Services" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <div id="hero-video" class="video-box hero-video-thumb" data-aos="fade-left" data-aos-delay="200" style="width:355px; height:615px;">
+            <button type="button" id="hero-video-play" class="hero-video-play-btn" aria-label="Play video: nep.SOP Statement of Purpose Writing Services">
+              <img class="hero-video-poster" src="https://img.youtube.com/vi/JsityQp2ZQE/maxresdefault.jpg" alt="nep.SOP - Statement of Purpose Writing Services promotional video thumbnail (click to play)" width="480" height="360">
+              <span class="hero-video-play-icon" aria-hidden="true"><i class="bi bi-play-circle-fill"></i></span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -325,7 +419,7 @@ DM on Instagram</a>
 
           <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
             <div class="about-img-wrap">
-              <img src="assets/img/2.png" alt="NEPSOP team providing professional SOP writing and academic assignment services in Nepal" class="img-fluid about-img">
+              <img src="assets/img/2.png" alt="NEPSOP team providing professional SOP writing and academic assignment services in Nepal" class="img-fluid about-img" loading="lazy" width="2000" height="1414">
             </div>
           </div>
 
@@ -461,7 +555,7 @@ DM on Instagram</a>
           </div>
 
           <div class="expert-image-wrap">
-            <img src="assets/img/success-rate.png" alt="Your Success Starts Here - nep.SOP" class="expert-image">
+            <img src="assets/img/success-rate.png" alt="Your Success Starts Here - nep.SOP" class="expert-image" loading="lazy" width="1536" height="1024">
           </div>
         </div>
 
@@ -616,11 +710,11 @@ DM on Instagram</a>
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/nisha.png" alt="Nisha Limbu - Google review">
+                    <img src="assets/img/review/reviewer/nisha.png" alt="Nisha Limbu - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNidk42RnhBRRAB!2m1!1s0x0:0xaac0f849fd5d654e!3m1!1s2@1:CIHM0ogKEICAgICbvN6FxAE%7CCgwI49KEtQYQ8IPl6wE%7C"
                         target="_blank">Nisha Limbu</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -639,7 +733,7 @@ DM on Instagram</a>
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/reviews/@27.7089604,85.3261328,784m/data=!3m2!1e3!4b1!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT2tFNVVteGtWM2RtYzJ0amRHOVdjemhZY1dRNWMxRRAB!2m1!1s0x0:0xaac0f849fd5d654e?hl=en-GB&entry=ttu&g_ep=EgoyMDI2MDgwMi4wIKXMDSoASAFQAw%3D%3D"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -649,11 +743,11 @@ DM on Instagram</a>
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/praxant.png" alt="PRA XANT - Google review">
+                    <img src="assets/img/review/reviewer/praxant.png" alt="PRA XANT - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNidk42RnhBRRAB!2m1!1s0x0:0xaac0f849fd5d654e!3m1!1s2@1:CIHM0ogKEICAgICbvN6FxAE%7CCgwI49KEtQYQ8IPl6wE%7C"
                         target="_blank">PRA XANT</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -675,7 +769,7 @@ The whole process was extremely smooth...
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/reviews/@27.7089604,85.3261328,784m/data=!3m2!1e3!4b1!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT25sQ2F6Z3hTVlZZYzBGdGVHVmpObm94YTBaaFFtYxAB!2m1!1s0x0:0xaac0f849fd5d654e?hl=en-GB&entry=ttu&g_ep=EgoyMDI2MDgwMi4wIKXMDSoASAFQAw%3D%3D"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -685,11 +779,11 @@ The whole process was extremely smooth...
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/puspa.png" alt="Puspa Kunwar - Google review">
+                    <img src="assets/img/review/reviewer/puspa.png" alt="Puspa Kunwar - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNidk42RnhBRRAB!2m1!1s0x0:0xaac0f849fd5d654e!3m1!1s2@1:CIHM0ogKEICAgICbvN6FxAE%7CCgwI49KEtQYQ8IPl6wE%7C"
                         target="_blank">Puspa Kunwar</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -709,7 +803,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/reviews/@27.7089604,85.3261328,784m/data=!3m2!1e3!4b1!4m6!14m5!1m4!2m3!1sChdDSUhNMG9nS0VJQ0FnSUNuajlEcjBBRRAB!2m1!1s0x0:0xaac0f849fd5d654e?hl=en-GB&entry=ttu&g_ep=EgoyMDI2MDgwMi4wIKXMDSoASAFQAw%3D%3D"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -719,11 +813,11 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/daniel.png" alt="Daniel BK - Google review">
+                    <img src="assets/img/review/reviewer/daniel.png" alt="Daniel BK - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNidk42RnhBRRAB!2m1!1s0x0:0xaac0f849fd5d654e!3m1!1s2@1:CIHM0ogKEICAgICbvN6FxAE%7CCgwI49KEtQYQ8IPl6wE%7C"
                         target="_blank">Daniel BK</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -741,7 +835,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNidk42RnhBRRAB!2m1!1s0x0:0xaac0f849fd5d654e!3m1!1s2@1:CIHM0ogKEICAgICbvN6FxAE%7CCgwI49KEtQYQ8IPl6wE%7C"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -752,11 +846,11 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/kushbina.png" alt="Kushbina Bishwokarma - Google review">
+                    <img src="assets/img/review/reviewer/kushbina.png" alt="Kushbina Bishwokarma - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/reviews/@27.7089604,85.3261328,17z/data=!3m1!4b1!4m6!14m5!1m4!2m3!1sChZDSUhNMG9nS0VJQ0FnSURyeE9tTVlREAE!2m1!1s0x0:0xaac0f849fd5d654e?entry=ttu"
                         target="_blank">Kushbina Bishwokarma</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -774,7 +868,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/reviews/@27.7089604,85.3261328,17z/data=!3m1!4b1!4m6!14m5!1m4!2m3!1sChZDSUhNMG9nS0VJQ0FnSURyeE9tTVlREAE!2m1!1s0x0:0xaac0f849fd5d654e?entry=ttu"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -784,11 +878,11 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/dipan.png" alt="Dipan Dahal - Google review">
+                    <img src="assets/img/review/reviewer/dipan.png" alt="Dipan Dahal - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/reviews/@27.7089604,85.3261328,17z/data=!3m1!4b1!4m6!14m5!1m4!2m3!1sChdDSUhNMG9nS0VJQ0FnSURyNHRQWDNnRRAB!2m1!1s0x0:0xaac0f849fd5d654e?entry=ttu"
                         target="_blank">Dipan Dahal</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -806,7 +900,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/reviews/@27.7089604,85.3261328,17z/data=!3m1!4b1!4m6!14m5!1m4!2m3!1sChdDSUhNMG9nS0VJQ0FnSURyNHRQWDNnRRAB!2m1!1s0x0:0xaac0f849fd5d654e?entry=ttu"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -816,11 +910,11 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/prajwal.png" alt="Prajwal Karki - Google review">
+                    <img src="assets/img/review/reviewer/prajwal.png" alt="Prajwal Karki - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/reviews/@27.7089604,85.3261328,17z/data=!3m1!4b1!4m6!14m5!1m4!2m3!1sChdDSUhNMG9nS0VJQ0FnSUNyanNqamhnRRAB!2m1!1s0x0:0xaac0f849fd5d654e?entry=ttu"
                         target="_blank">Prajwal Karki</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -838,7 +932,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/reviews/@27.7089604,85.3261328,17z/data=!3m1!4b1!4m6!14m5!1m4!2m3!1sChdDSUhNMG9nS0VJQ0FnSUNyanNqamhnRRAB!2m1!1s0x0:0xaac0f849fd5d654e?entry=ttu"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -848,11 +942,11 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/swaroon.png" alt="Swaroon Swornakar - Google review">
+                    <img src="assets/img/review/reviewer/swaroon.png" alt="Swaroon Swornakar - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNMaS1PeW93RRAB!2m1!1s0x0:0xaac0f849fd5d654e!3m1!1s2@1:CIHM0ogKEICAgICLi-OyowE%7CCgwI7bLeswYQiJ2Q1AM%7C"
                         target="_blank">Swaroon Swornakar</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -869,7 +963,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNMaS1PeW93RRAB!2m1!1s0x0:0xaac0f849fd5d654e!3m1!1s2@1:CIHM0ogKEICAgICLi-OyowE%7CCgwI7bLeswYQiJ2Q1AM%7C"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -879,11 +973,11 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/jenisha.png" alt="Jenisha Gurung - Google review">
+                    <img src="assets/img/review/reviewer/jenisha.png" alt="Jenisha Gurung - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/contrib/106819350151465446650/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7184512,85.311488,12z/data=!4m6!1m5!8m4!1e1!2s106819350151465446650!3m1!1e1?hl=en&entry=ttu"
                         target="_blank">Jenisha Gurung</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -900,7 +994,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/contrib/106819350151465446650/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7184512,85.311488,12z/data=!4m6!1m5!8m4!1e1!2s106819350151465446650!3m1!1e1?hl=en&entry=ttu"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -910,11 +1004,11 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/shristi.png" alt="Shristi Gautam - Google review">
+                    <img src="assets/img/review/reviewer/shristi.png" alt="Shristi Gautam - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/contrib/109949408632739954236/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7089604,85.3235579,17z/data=!4m6!1m5!8m4!1e1!2s109949408632739954236!3m1!1e1?hl=en&entry=ttu"
                         target="_blank">Shristi Gautam</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -931,7 +1025,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/contrib/109949408632739954236/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7089604,85.3235579,17z/data=!4m6!1m5!8m4!1e1!2s109949408632739954236!3m1!1e1?hl=en&entry=ttu"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -941,11 +1035,11 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/bipin.png" alt="Bipin Pandey - Google review">
+                    <img src="assets/img/review/reviewer/bipin.png" alt="Bipin Pandey - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/contrib/112151535171527912734/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7089604,85.3235579,17z/data=!4m6!1m5!8m4!1e1!2s112151535171527912734!3m1!1e1?hl=en&entry=ttu"
                         target="_blank">Bipin Pandey</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -963,7 +1057,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/contrib/112151535171527912734/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7089604,85.3235579,17z/data=!4m6!1m5!8m4!1e1!2s112151535171527912734!3m1!1e1?hl=en&entry=ttu"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -973,11 +1067,11 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/m-letter.png" alt="Manish Ray - Google review">
+                    <img src="assets/img/review/reviewer/m-letter.png" alt="Manish Ray - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/contrib/104387681742377013594/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7184512,85.311488,12z/data=!4m6!1m5!8m4!1e1!2s104387681742377013594!3m1!1e1?hl=en&entry=ttu"
                         target="_blank">Manish Ray</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -995,7 +1089,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/contrib/104387681742377013594/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7184512,85.311488,12z/data=!4m6!1m5!8m4!1e1!2s104387681742377013594!3m1!1e1?hl=en&entry=ttu"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -1005,11 +1099,11 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/jitesh.png" alt="Jitesh - Google review">
+                    <img src="assets/img/review/reviewer/jitesh.png" alt="Jitesh - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/contrib/114947145703237058438/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7089604,85.3235579,17z/data=!4m6!1m5!8m4!1e1!2s114947145703237058438!3m1!1e1?hl=en&entry=ttu"
                         target="_blank">Jitesh (RaoShab)</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -1026,7 +1120,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/contrib/114947145703237058438/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7089604,85.3235579,17z/data=!4m6!1m5!8m4!1e1!2s114947145703237058438!3m1!1e1?hl=en&entry=ttu"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -1036,11 +1130,11 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/p-letter.png" alt="Prazol Sharma - Google review">
+                    <img src="assets/img/review/reviewer/p-letter.png" alt="Prazol Sharma - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/contrib/103603208652408825825/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7184512,85.311488,12z/data=!4m6!1m5!8m4!1e1!2s103603208652408825825!3m1!1e1?hl=en&entry=ttu"
                         target="_blank">Prazol Sharma</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -1058,7 +1152,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/contrib/103603208652408825825/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7184512,85.311488,12z/data=!4m6!1m5!8m4!1e1!2s103603208652408825825!3m1!1e1?hl=en&entry=ttu"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -1068,11 +1162,11 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/rajendra.png" alt="Rajendra Karki - Google review">
+                    <img src="assets/img/review/reviewer/rajendra.png" alt="Rajendra Karki - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/contrib/108922109692272695832/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7089604,85.3235579,17z/data=!4m6!1m5!8m4!1e1!2s108922109692272695832!3m1!1e1?hl=en&entry=ttu"
                         target="_blank">Rajendra Karki</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -1090,7 +1184,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/contrib/108922109692272695832/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7089604,85.3235579,17z/data=!4m6!1m5!8m4!1e1!2s108922109692272695832!3m1!1e1?hl=en&entry=ttu"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -1100,11 +1194,11 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/samikshya.png" alt="Samishrika Pariyar - Google review">
+                    <img src="assets/img/review/reviewer/samikshya.png" alt="Samishrika Pariyar - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/contrib/107164614828387317674/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7089604,85.1613379,11z/data=!4m4!1m3!8m2!1e1!2s107164614828387317674?hl=en&entry=ttu"
                         target="_blank">Samishrika Pariyar</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -1122,7 +1216,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/contrib/107164614828387317674/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.7089604,85.1613379,11z/data=!4m4!1m3!8m2!1e1!2s107164614828387317674?hl=en&entry=ttu"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -1132,11 +1226,11 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/diya.png" alt="Diya Maharjan - Google review">
+                    <img src="assets/img/review/reviewer/diya.png" alt="Diya Maharjan - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/contrib/103141004136318887416/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.6876219,85.2724212,14z/data=!4m6!1m5!8m4!1e1!2s103141004136318887416!3m1!1e1?hl=en-US&entry=ttu"
                         target="_blank">Diya Maharjan</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -1154,7 +1248,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/contrib/103141004136318887416/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.6876219,85.2724212,14z/data=!4m6!1m5!8m4!1e1!2s103141004136318887416!3m1!1e1?hl=en-US&entry=ttu"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -1164,11 +1258,11 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <div class="images-name-review">
-                    <img src="assets/img/review/reviewer/shankhar.png" alt="Shankar Shrestha - Google review">
+                    <img src="assets/img/review/reviewer/shankhar.png" alt="Shankar Shrestha - Google review" loading="lazy">
                     <div class="name-tick d-flex">
                       <a href="https://www.google.com/maps/contrib/114500025529846190720/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.8021434,85.1048423,11z/data=!4m6!1m5!8m4!1e1!2s114500025529846190720!3m1!1e1?hl=en&entry=ttu"
                         target="_blank">Mr Shankar Shrestha</a>
-                      <img src="assets/img/review/tick.png" alt="Verified Google review">
+                      <img src="assets/img/review/tick.png" alt="Verified Google review" loading="lazy">
                     </div>
 
                   </div>
@@ -1187,7 +1281,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   </div>
                   <div class="google-img">
                     <a href="https://www.google.com/maps/contrib/114500025529846190720/place/ChIJcb5o0XGQ_68RTmVd_Un4wKo/@27.8021434,85.1048423,11z/data=!4m6!1m5!8m4!1e1!2s114500025529846190720!3m1!1e1?hl=en&entry=ttu"
-                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google"></a>
+                      target="_blank"><img src="assets/img/review/google-img.png" alt="Review on Google" loading="lazy"></a>
                   </div>
                 </div>
               </div>
@@ -1287,13 +1381,12 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#faq-content-1">
                     <span class="num">1.</span>
-                    What are the services that we provide?
+                    What makes a strong Statement of Purpose?
                   </button>
                 </h3>
                 <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                   <div class="accordion-body">
-                    We provide services for SOP, SOWP, Invitation Letter, Appeal Letter, Cover Letter, Scholarship
-                    Essay, Motivation Letter.
+                    A strong SOP clearly explains academic background, motivation, course relevance, and future goals while aligning with university or visa evaluation criteria.
                   </div>
                 </div>
               </div><!-- # Faq item-->
@@ -1303,12 +1396,12 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#faq-content-2">
                     <span class="num">2.</span>
-                    Do we help with preparing other documents and processing them?
+                    Can the same SOP be used for multiple universities or visas?
                   </button>
                 </h3>
                 <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                   <div class="accordion-body">
-                    No, we only help with SOP, Appeal letter, Cover Letter, Scholarship essay, motivation letter.
+                    No. SOPs must be customized for each university and visa category because evaluation standards, course focus, and compliance requirements vary.
                   </div>
                 </div>
               </div><!-- # Faq item-->
@@ -1318,12 +1411,12 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#faq-content-3">
                     <span class="num">3.</span>
-                    Is there an office where the agreement is carried out?
+                    How long should a Statement of Purpose be?
                   </button>
                 </h3>
                 <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                   <div class="accordion-body">
-                    No, nep.SOP is an online based company so every interaction is done online.
+                    In most cases, SOPs range between 500 and 1,500 words unless a specific word limit is specified by the institution or immigration authority.
                   </div>
                 </div>
               </div><!-- # Faq item-->
@@ -1333,12 +1426,12 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#faq-content-4">
                     <span class="num">4.</span>
-                    What are the prices for the services?
+                    Is SOP writing required for visa applications as well?
                   </button>
                 </h3>
                 <div id="faq-content-4" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                   <div class="accordion-body">
-                    The prices for our services can be inquired by contacting us directly.
+                    Yes. Many visa applications—especially student visas—require an SOP to explain study purpose, financial preparedness, and intent to immigration officers.
                   </div>
                 </div>
               </div><!-- # Faq item-->
@@ -1348,13 +1441,12 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#faq-content-5">
                     <span class="num">5.</span>
-                    How do we work?
+                    What should be included in a Visa SOP?
                   </button>
                 </h3>
                 <div id="faq-content-5" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                   <div class="accordion-body">
-                    The way we operate is as follows: make an advance payment, fill out a form, Customer Area, Keep up
-                    to date on progress, Make a full payment after completion, Unlimited corrections and revisions
+                    A Visa SOP includes academic background, course relevance, financial planning, home country ties, travel history, and long-term career plans.
                   </div>
                 </div>
               </div><!-- # Faq item-->
@@ -1364,26 +1456,27 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#faq-content-6">
                     <span class="num">6.</span>
-                    Is there a chance of plagiarism?
+                    Can SOP writing services guarantee admission or visa approval?
                   </button>
                 </h3>
                 <div id="faq-content-6" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                   <div class="accordion-body">
-                    No, our goal is to provide a plagiarism-free and original SOP.
+                    No. Ethical SOP writing services cannot guarantee admission or visa approval, as decisions depend on multiple factors set by authorities.
                   </div>
                 </div>
               </div><!-- # Faq item-->
+
               <div class="accordion-item">
                 <h3 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#faq-content-7">
                     <span class="num">7.</span>
-                    Do we charge extra for corrections?
+                    Do universities check for plagiarism or AI-written content in SOPs?
                   </button>
                 </h3>
                 <div id="faq-content-7" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                   <div class="accordion-body">
-                    No, we provide unlimited correction and revision after the completion.
+                    Yes. Universities evaluate SOPs using plagiarism detection tools and manual review. Original, personalized writing is essential.
                   </div>
                 </div>
               </div><!-- # Faq item-->
@@ -1393,12 +1486,27 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#faq-content-8">
                     <span class="num">8.</span>
-                    Is every SOP personalized?
+                    Can AI tools like ChatGPT be used to write an SOP?
                   </button>
                 </h3>
                 <div id="faq-content-8" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                   <div class="accordion-body">
-                    Yes, every SOP is 100% personalized and written from scratch based on your specific academic background, career goals, and the requirements of your chosen university and program. We never use templates.
+                    AI tools can assist with brainstorming, but SOPs must be personalized, factual, and refined to meet official requirements.
+                  </div>
+                </div>
+              </div><!-- # Faq item-->
+
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#faq-content-9">
+                    <span class="num">9.</span>
+                    Does NEPSOP review or edit existing SOPs?
+                  </button>
+                </h3>
+                <div id="faq-content-9" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                  <div class="accordion-body">
+                    Yes. NEPSOP offers SOP review and editing services to improve clarity, structure, and alignment while preserving original intent.
                   </div>
                 </div>
               </div><!-- # Faq item-->
@@ -1408,12 +1516,12 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#faq-content-10">
                     <span class="num">10.</span>
-                    How can I contact NEPSOP?
+                    What are the major types of SOPs covered?
                   </button>
                 </h3>
                 <div id="faq-content-10" class="accordion-collapse collapse" data-bs-parent="#faqlist">
                   <div class="accordion-body">
-                    You can reach us via WhatsApp at <a href="https://wa.me/9779861935709">+977-9861935709</a>, email at <a href="mailto:info@nepsop.com.np">info@nepsop.com.np</a>, or connect with us on <a href="https://www.facebook.com/nep.sopwrite" target="_blank">Facebook</a> and <a href="https://www.instagram.com/nep.sop/" target="_blank">Instagram</a>.
+                    University Admission SOPs, Student Visa SOPs, Scholarship SOPs, PhD SOPs, Work Visa SOPs, PR SOPs, and Visa Refusal/LOE SOPs.
                   </div>
                 </div>
               </div><!-- # Faq item-->
@@ -1499,7 +1607,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
             <div class="col-lg-6 contact-visual-col">
               <div class="contact-visual-content" data-aos="fade-left" data-aos-delay="150">
                 <div class="contact-visual-bg">
-                  <img src="assets/img/contact.svg" class="contact-illustration" alt="Contact nep.SOP for professional SOP writing services" loading="lazy">
+                  <img src="assets/img/contact.svg" class="contact-illustration" alt="Contact nep.SOP for professional SOP writing services" loading="lazy" width="553" height="368">
                   <!-- Decorative circles -->
                   <div class="deco-circle deco-circle-1"></div>
                   <div class="deco-circle deco-circle-2"></div>
@@ -1511,6 +1619,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
                     <i class="bi bi-arrow-right"></i>
                   </a>
                   <p class="contact-trust-msg">Need help choosing the right SOP service? Our team is available to guide you.</p>
+                  <p class="contact-full-details"><a href="contact.html">View full contact details (email, phone &amp; availability) <i class="bi bi-arrow-right"></i></a></p>
                 </div>
               </div>
             </div>
@@ -1562,6 +1671,9 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
             <li><a href="germany-sop.html">Germany SOP</a></li>
             <li><a href="malta-sop.html">Malta SOP</a></li>
             <li><a href="dependent-visa-sop.html">Dependent Visa SOP</a></li>
+            <li><a href="relationship-history-timeline.html">Relationship History &amp; Timeline</a></li>
+            <li><a href="sop-revisions.html">SOP Revisions</a></li>
+            <li><a href="sop-customer-support.html">SOP Customer Support</a></li>
           </ul>
         </div>
 
@@ -1599,6 +1711,7 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/analytics.js"></script>
 
   <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -1620,88 +1733,104 @@ I proudly appreciate the work of nep.sop. The sop they wrote for me was amazing 
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "What is an SOP?",
+        "name": "What makes a strong Statement of Purpose?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "SOP stands for Statement of Purpose. It is a written document that outlines your academic background, professional goals, and reasons for choosing a specific program and university. A well-written SOP is a critical part of your study abroad application."
+          "text": "A strong SOP clearly explains academic background, motivation, course relevance, and future goals while aligning with university or visa evaluation criteria."
         }
       },
       {
         "@type": "Question",
-        "name": "Why is an SOP important for university applications?",
+        "name": "Can the same SOP be used for multiple universities or visas?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "An SOP is often the most important document in your application. Admissions officers use it to understand who you are beyond your grades and test scores. A compelling SOP can distinguish you from other applicants and demonstrate why you are the right fit for the program."
+          "text": "No. SOPs must be customized for each university and visa category because evaluation standards, course focus, and compliance requirements vary."
         }
       },
       {
         "@type": "Question",
-        "name": "Do you provide Australia SOP writing services?",
+        "name": "How long should a Statement of Purpose be?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, we specialize in Australia SOP writing for student visa applications and university admissions. Our writers understand the specific requirements of Australian institutions and the Department of Home Affairs."
+          "text": "In most cases, SOPs range between 500 and 1,500 words unless a specific word limit is specified by the institution or immigration authority."
         }
       },
       {
         "@type": "Question",
-        "name": "Do you write Canada SOPs?",
+        "name": "Is SOP writing required for visa applications as well?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Absolutely. We offer Canada SOP writing services for students applying to Canadian universities and colleges. Our team is experienced in crafting SOPs that meet IRCC and institutional standards."
+          "text": "Yes. Many visa applications—especially student visas—require an SOP to explain study purpose, financial preparedness, and intent to immigration officers."
         }
       },
       {
         "@type": "Question",
-        "name": "Do you provide USA SOP writing services?",
+        "name": "What should be included in a Visa SOP?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, we provide USA SOP writing services for undergraduate, master's, and PhD applications. We help you craft a compelling narrative that highlights your academic achievements and career aspirations for US universities."
+          "text": "A Visa SOP includes academic background, course relevance, financial planning, home country ties, travel history, and long-term career plans."
         }
       },
       {
         "@type": "Question",
-        "name": "How long does it take to prepare an SOP?",
+        "name": "Can SOP writing services guarantee admission or visa approval?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The timeline depends on the complexity of your application. Typically, after you complete the form and make the advance payment, we deliver the first draft within 3-5 business days. Revisions are handled promptly based on your feedback."
+          "text": "No. Ethical SOP writing services cannot guarantee admission or visa approval, as decisions depend on multiple factors set by authorities."
         }
       },
       {
         "@type": "Question",
-        "name": "Do you provide revisions?",
+        "name": "Do universities check for plagiarism or AI-written content in SOPs?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, we provide unlimited corrections and revisions after completion. Your satisfaction is our priority, and we work with you until the SOP meets your expectations."
+          "text": "Yes. Universities evaluate SOPs using plagiarism detection tools and manual review. Original, personalized writing is essential."
         }
       },
       {
         "@type": "Question",
-        "name": "Is every SOP personalized?",
+        "name": "Can AI tools like ChatGPT be used to write an SOP?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, every SOP is 100% personalized and written from scratch based on your specific academic background, career goals, and the requirements of your chosen university and program. We never use templates."
+          "text": "AI tools can assist with brainstorming, but SOPs must be personalized, factual, and refined to meet official requirements."
         }
       },
       {
         "@type": "Question",
-        "name": "What services do you provide?",
+        "name": "Does NEPSOP review or edit existing SOPs?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "We provide services for SOP, SOWP, Invitation Letter, Appeal Letter, Cover Letter, Scholarship Essay, and Motivation Letter writing. We only help with document writing, not visa processing."
+          "text": "Yes. NEPSOP offers SOP review and editing services to improve clarity, structure, and alignment while preserving original intent."
         }
       },
       {
         "@type": "Question",
-        "name": "How can I contact NEPSOP?",
+        "name": "What are the major types of SOPs covered?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "You can reach us via WhatsApp at +977-9861935709, email at info@nepsop.com.np, or connect with us on Facebook and Instagram."
+          "text": "University Admission SOPs, Student Visa SOPs, Scholarship SOPs, PhD SOPs, Work Visa SOPs, PR SOPs, and Visa Refusal/LOE SOPs."
         }
       }
     ]
   }
   </script>
 
+  <script>
+    // Click-to-play hero video: inject the YouTube iframe only after the user clicks
+    (function () {
+      var playBtn = document.getElementById('hero-video-play');
+      if (!playBtn) return;
+      playBtn.addEventListener('click', function () {
+        var container = document.getElementById('hero-video');
+        if (!container || container.querySelector('iframe')) return;
+        // Drop the wrapper's own border/frame so the iframe renders exactly like the original
+        container.classList.remove('video-box');
+        container.style.width = '';
+        container.style.height = '';
+        container.innerHTML = '<iframe class="video-box" width="355px" height="615px" src="https://www.youtube.com/embed/JsityQp2ZQE?autoplay=1&mute=1&loop=1&playlist=JsityQp2ZQE" title="nep.SOP - Statement of Purpose Writing Services" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+      });
+    })();
+  </script>
 </body>
 
 </html>
