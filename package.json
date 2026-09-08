@@ -2,6 +2,7 @@
   "scripts": {
     "build": "node build.js",
     "prebuild": "echo 'Building config from .env...'",
+    "predev": "node build.js",
     "dev": "npx serve ."
   },
   "dependencies": {

@@ -19,6 +19,108 @@
 
   <!-- Admin CSS -->
   <link href="../assets/css/admin.css" rel="stylesheet">
+
+  <!-- Quill 2 Rich Text Editor -->
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+
+  <style>
+    /* Quill editor integration with admin theme */
+    .quill-wrapper {
+      border: 1px solid var(--admin-border);
+      border-radius: 0 0 var(--admin-radius-md) var(--admin-radius-md);
+      overflow: hidden;
+    }
+    .quill-wrapper .ql-toolbar {
+      border: none;
+      border-bottom: 1px solid var(--admin-border);
+      background: var(--admin-surface);
+      padding: 8px 12px;
+    }
+    .quill-wrapper .ql-toolbar .ql-stroke {
+      stroke: var(--admin-text-secondary);
+    }
+    .quill-wrapper .ql-toolbar .ql-fill {
+      fill: var(--admin-text-secondary);
+    }
+    .quill-wrapper .ql-toolbar button:hover .ql-stroke,
+    .quill-wrapper .ql-toolbar .ql-active .ql-stroke {
+      stroke: var(--admin-primary);    }
+    .quill-wrapper .ql-toolbar button:hover .ql-fill,
+    .quill-wrapper .ql-toolbar .ql-active .ql-fill {
+      fill: var(--admin-primary);
+    }
+    .quill-wrapper .ql-toolbar button:hover,
+    .quill-wrapper .ql-toolbar button.ql-active {
+      background: var(--admin-primary-light);
+    }
+    .quill-wrapper .ql-toolbar .ql-picker-label {
+      color: var(--admin-text-secondary);
+    }
+    .quill-wrapper .ql-toolbar .ql-picker-label:hover,
+    .quill-wrapper .ql-toolbar .ql-picker-label.ql-active {
+      color: var(--admin-primary);
+    }
+    .quill-wrapper .ql-container {
+      border: none;
+      font-family: var(--admin-font);
+      font-size: 14px;
+      color: var(--admin-text);
+    }
+    .quill-wrapper .ql-editor {
+      min-height: 360px;
+      max-height: 600px;
+      overflow-y: auto;
+      padding: 16px;
+      line-height: 1.7;
+    }
+    .quill-wrapper .ql-editor.ql-blank::before {
+      color: var(--admin-text-light);
+      font-style: normal;
+      left: 16px;
+      right: 16px;
+    }
+    .quill-wrapper .ql-editor h2 {
+      font-family: var(--admin-font-heading);
+      font-size: 22px;
+      font-weight: 700;
+      margin: 20px 0 12px;
+      color: var(--admin-text);
+    }
+    .quill-wrapper .ql-editor h3 {
+      font-family: var(--admin-font-heading);
+      font-size: 18px;
+      font-weight: 600;
+      margin: 16px 0 10px;
+      color: var(--admin-text);
+    }
+    .quill-wrapper .ql-editor p {
+      margin: 0 0 10px;
+    }
+    .quill-wrapper .ql-editor ul,
+    .quill-wrapper .ql-editor ol {
+      padding-left: 24px;
+      margin: 0 0 10px;
+    }
+    .quill-wrapper .ql-editor blockquote {
+      border-left: 4px solid var(--admin-primary);
+      padding-left: 16px;
+      margin: 12px 0;
+      color: var(--admin-text-secondary);
+    }
+    .quill-wrapper .ql-editor a {
+      color: var(--admin-primary);
+    }
+    .quill-wrapper .ql-editor img {
+      max-width: 100%;
+      border-radius: var(--admin-radius-md);
+    }
+    /* Hide the original textarea */
+    .admin-editor-original { display: none; }
+    /* Content validation error */
+    .quill-wrapper.ql-error {
+      border-color: var(--admin-danger);
+    }
+  </style>
 </head>
 <body class="admin-body">
 
@@ -103,24 +205,11 @@
 
         <!-- Content Editor -->
         <div class="admin-form-group">
-          <label class="admin-form-label" for="content">Blog Content *</label>
-          <p class="admin-form-hint" style="margin-bottom: 8px;">HTML is supported. You can use headings, paragraphs, lists, images, and links.</p>
-          <div class="admin-editor-wrap">
-            <div class="admin-editor-toolbar" id="editorToolbar">
-              <button type="button" data-tag="h2" title="Heading"><i class="bi bi-type-h2"></i></button>
-              <button type="button" data-tag="h3" title="Subheading"><i class="bi bi-type-h3"></i></button>
-              <div class="separator"></div>
-              <button type="button" data-tag="p" title="Paragraph"><i class="bi bi-paragraph"></i></button>
-              <button type="button" data-tag="ul" title="Bullet List"><i class="bi bi-list-ul"></i></button>
-              <button type="button" data-tag="ol" title="Numbered List"><i class="bi bi-list-ol"></i></button>
-              <div class="separator"></div>
-              <button type="button" data-tag="bold" title="Bold"><i class="bi bi-type-bold"></i></button>
-              <button type="button" data-tag="italic" title="Italic"><i class="bi bi-type-italic"></i></button>
-              <button type="button" data-tag="link" title="Insert Link"><i class="bi bi-link-45deg"></i></button>
-              <button type="button" data-tag="img" title="Insert Image"><i class="bi bi-image"></i></button>
-            </div>
-            <textarea class="admin-form-textarea" id="content" name="content" placeholder="Write your blog content here. HTML is supported." style="min-height: 360px;"></textarea>
+          <label class="admin-form-label">Blog Content *</label>
+          <div class="quill-wrapper" id="quillWrapper">
+            <div id="quillEditor"></div>
           </div>
+          <textarea class="admin-form-textarea admin-editor-original" id="content" name="content"></textarea>
         </div>
 
         <!-- SEO Section -->
@@ -165,6 +254,9 @@
   <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
+  <!-- Quill 2 Rich Text Editor -->
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
   <!-- Config -->
   <script src="../assets/js/config.js"></script>
 
@@ -196,6 +288,23 @@
       const form = document.getElementById('blogForm');
       const submitBtn = document.getElementById('submitBtn');
       const submitBtnText = document.getElementById('submitBtnText');
+      const contentArea = document.getElementById('content');
+      const quillWrapper = document.getElementById('quillWrapper');
+
+      // ── Initialize Quill Editor ──
+      var quill = new Quill('#quillEditor', {
+        theme: 'snow',
+        placeholder: 'Start writing your blog here...',
+        modules: {
+          toolbar: [
+            [{ 'header': [2, 3, false] }],
+            ['bold', 'italic', 'underline'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ['blockquote', 'link', 'image'],
+            ['clean']
+          ]
+        }
+      });
 
       let slugManuallyEdited = false;
 
@@ -285,36 +394,19 @@
         imageHint.style.display = '';
       });
 
-      // ── Editor Toolbar ──
-      var toolbar = document.getElementById('editorToolbar');
-      var contentArea = document.getElementById('content');
+      // ── Helper: Check if Quill has meaningful content ──
+      function hasContent(q) {
+        var text = q.getText().trim();
+        if (text.length > 0) return true;
+        var html = q.root.innerHTML.trim();
+        // Check for meaningful HTML (not just empty tags)
+        if (html && html !== '<p><br></p>' && html !== '<p></p>' && html !== '<br>') return true;
+        return false;
+      }
 
-      toolbar.querySelectorAll('button').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var tag = this.dataset.tag;
-          var start = contentArea.selectionStart;
-          var end = contentArea.selectionEnd;
-          var selected = contentArea.value.substring(start, end);
-          var before = contentArea.value.substring(0, start);
-          var after = contentArea.value.substring(end);
-          var insert = '';
-
-          switch(tag) {
-            case 'h2': insert = '<h2>' + (selected || 'Heading') + '</h2>'; break;
-            case 'h3': insert = '<h3>' + (selected || 'Subheading') + '</h3>'; break;
-            case 'p': insert = '<p>' + (selected || 'Paragraph text...') + '</p>'; break;
-            case 'ul': insert = '<ul>\n  <li>' + (selected || 'List item') + '</li>\n</ul>'; break;
-            case 'ol': insert = '<ol>\n  <li>' + (selected || 'List item') + '</li>\n</ol>'; break;
-            case 'bold': insert = '<strong>' + (selected || 'bold text') + '</strong>'; break;
-            case 'italic': insert = '<em>' + (selected || 'italic text') + '</em>'; break;
-            case 'link': insert = '<a href="' + (selected || 'https://') + '">link text</a>'; break;
-            case 'img': insert = '<img src="' + (selected || 'https://') + '" alt="Image description">'; break;
-          }
-
-          contentArea.value = before + insert + after;
-          contentArea.focus();
-          contentArea.selectionStart = contentArea.selectionEnd = start + insert.length;
-        });
+      // ── Helper: Remove validation error style ──
+      quill.on('text-change', function() {
+        quillWrapper.classList.remove('ql-error');
       });
 
       // ── Form Submission ──
@@ -328,6 +420,16 @@
           showToast('Please enter a blog title.', 'error');
           return;
         }
+
+        // Validate content
+        if (!hasContent(quill)) {
+          quillWrapper.classList.add('ql-error');
+          showToast('Please enter some blog content.', 'error');
+          return;
+        }
+
+        // Sync Quill content to hidden textarea
+        contentArea.value = quill.root.innerHTML;
 
         submitBtn.disabled = true;
         submitBtnText.textContent = 'Saving...';

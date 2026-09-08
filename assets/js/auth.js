@@ -63,13 +63,22 @@
     const user = await getUser();
     if (!user) return false;
 
-    const adminEmail = (window.NEPSOP_CONFIG || {}).ADMIN_EMAIL || '';
-    if (adminEmail && user.email === adminEmail) return true;
+    const adminEmails = getAdminEmails();
+    if (adminEmails.length && adminEmails.includes((user.email || '').toLowerCase())) return true;
 
-    // If no ADMIN_EMAIL is configured, allow any authenticated user (RLS is the real guard)
-    if (!adminEmail) return true;
+    // If no admin email is configured, allow any authenticated user (RLS is the real guard)
+    if (!adminEmails.length) return true;
 
     return false;
+  }
+
+  function getAdminEmails() {
+    const config = window.NEPSOP_CONFIG || {};
+    const configuredEmails = config.ADMIN_EMAILS || config.ADMIN_EMAIL || '';
+    return configuredEmails
+      .split(',')
+      .map(email => email.trim().toLowerCase())
+      .filter(Boolean);
   }
 
   /**
@@ -84,8 +93,8 @@
     }
 
     // Also verify admin email if configured
-    const adminEmail = (window.NEPSOP_CONFIG || {}).ADMIN_EMAIL || '';
-    if (adminEmail && session.user.email !== adminEmail) {
+    const adminEmails = getAdminEmails();
+    if (adminEmails.length && !adminEmails.includes((session.user.email || '').toLowerCase())) {
       // Not the admin — sign out and redirect
       await NEPSOP.supabase.auth.signOut();
       window.location.href = '/admin/login.html';
