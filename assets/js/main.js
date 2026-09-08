@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('#navbar a').forEach(navbarlink => {
 
     if (!navbarlink.hash) return;
+    if (navbarlink.matches('.dropdown > a')) return;
 
     let section = document.querySelector(navbarlink.hash);
     if (!section) return;
