@@ -18,7 +18,7 @@
 
   <!-- Favicons -->
   <link href="assets/favicon/apple-icon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/favicon/apple-icon-180x180.png" rel="apple-touch-icon">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -117,10 +117,10 @@
       color: #D94A2B;
       margin-bottom: 16px;
       position: relative;
-      padding-left: 28px;
+      padding-left: 2px;
     }
 
-    .contact-hero .hero-eyebrow::before {
+    /* .contact-hero .hero-eyebrow::before {
       content: '';
       position: absolute;
       left: 0;
@@ -130,7 +130,7 @@
       height: 2px;
       background: #D94A2B;
       border-radius: 1px;
-    }
+    } */
 
     .contact-hero h1 {
       font-family: 'Montserrat', sans-serif;
@@ -484,6 +484,32 @@
       margin-bottom: 0;
     }
 
+    .contact-form-card .form-message {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      text-align: center;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .contact-form-card .form-message.success {
+      background: #eafaf1;
+      color: #1e7e34;
+      border: 1px solid #c3e6cb;
+    }
+
+    .contact-form-card .form-message.error {
+      background: #fdf2f2;
+      color: #c13d22;
+      border: 1px solid #f5c6cb;
+    }
+
+    .contact-form-card .hidden {
+      display: none !important;
+    }
+
     /* ----- Support CTA Section ----- */
     .contact-support-cta {
       padding: 70px 0;
@@ -617,6 +643,14 @@
     }
   </style>
 
+  <!-- Google Analytics 4 (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LBKF3DY60F"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-LBKF3DY60F');
+  </script>
 </head>
 
 <body>
@@ -659,12 +693,22 @@
               <li><a href="germany-sop.html">Germany SOP</a></li>
               <li><a href="malta-sop.html">Malta SOP</a></li>
               <li><a href="dependent-visa-sop.html">Dependent Visa SOP</a></li>
+              <li><a href="relationship-history-timeline.html">Relationship History &amp; Timeline</a></li>
             </ul>
           </li>
-          <li><a href="why-choose-nepsop.html">Why Us?</a></li>
+          <li class="dropdown"><a href="why-choose-nepsop.html"><span>Why Us</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="why-choose-nepsop.html">Why Choose NEPSOP?</a></li>
+              <li><a href="experienced-sop-writers.html">Experienced SOP Writers</a></li>
+              <li><a href="multi-country-sop-expertise.html">Multi-Country Expertise</a></li>
+              <li><a href="plagiarism-free-sop-writing.html">Plagiarism-Free SOP Writing</a></li>
+              <li><a href="100-personalized-sop-writing.html">100% Personalized SOPs</a></li>
+            </ul>
+          </li>
 
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contact Us</a></li>
+          <li><a href="blogs.html">Blog</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
         </ul>
       </nav><!-- .navbar -->
 
@@ -784,10 +828,14 @@
               <p>Share a few details about your study plans and we will help you understand the next steps.</p>
             </div>
 
-            <form id="contactForm" action="#" method="POST">
+            <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+              <input type="hidden" name="access_key" value="563eb031-170f-4d9d-97f6-9fc517cb7828">
+              <input type="hidden" name="subject" value="New Inquiry from NEPSOP Website">
+              <input type="hidden" name="from_name" value="NEPSOP Website">
+              <input type="checkbox" name="botcheck" class="hidden" style="display:none">
               <div class="form-group">
                 <label for="fullName">Full Name <span class="required">*</span></label>
-                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                <input type="text" id="fullName" name="name" placeholder="Enter your full name" required>
               </div>
 
               <div class="form-group">
@@ -802,7 +850,7 @@
 
               <div class="form-group">
                 <label for="destination">Study Destination</label>
-                <select id="destination" name="destination">
+                <select id="destination" name="studyDestination">
                   <option value="" disabled selected>Select your study destination</option>
                   <option value="Australia">Australia</option>
                   <option value="Canada">Canada</option>
@@ -815,7 +863,7 @@
 
               <div class="form-group">
                 <label for="service">Service Required</label>
-                <select id="service" name="service">
+                <select id="service" name="serviceRequired">
                   <option value="" disabled selected>Select a service</option>
                   <option value="SOP Writing">SOP Writing</option>
                   <option value="SOP Review">SOP Review</option>
@@ -829,7 +877,8 @@
                 <textarea id="message" name="message" placeholder="Tell us about your academic background, study destination, or how we can help..." required></textarea>
               </div>
 
-              <button type="submit" class="btn-submit">Send Inquiry <i class="bi bi-send"></i></button>
+              <div id="form-message" role="status" aria-live="polite" class="mt-3" style="min-height:0;"></div>
+              <button type="submit" class="btn-submit" id="submitBtn">Send Inquiry <i class="bi bi-send"></i></button>
               <p class="form-note">We will get back to you within 24 hours.</p>
             </form>
           </div>
@@ -890,6 +939,9 @@
             <li><a href="germany-sop.html">Germany SOP</a></li>
             <li><a href="malta-sop.html">Malta SOP</a></li>
             <li><a href="dependent-visa-sop.html">Dependent Visa SOP</a></li>
+            <li><a href="relationship-history-timeline.html">Relationship History &amp; Timeline</a></li>
+            <li><a href="sop-revisions.html">SOP Revisions</a></li>
+            <li><a href="sop-customer-support.html">SOP Customer Support</a></li>
           </ul>
         </div>
 
@@ -922,6 +974,7 @@
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/analytics.js"></script>
 
   <!-- Schema.org ContactPoint -->
   <script type="application/ld+json">
@@ -941,6 +994,59 @@
     "sameAs": [
       "https://www.facebook.com/nep.sopwrite",
       "https://www.instagram.com/nep.sop/"
+    ]
+  }
+  </script>
+
+  <!-- LocalBusiness structured data -->
+  <!-- TODO: Add a street address/geo only if the site owner provides a physical address (nep.SOP currently operates remotely). -->
+  <!-- TODO: Add aggregateRating only with real Google Business Profile rating data from the site owner. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "nep.SOP",
+    "url": "https://nepsop.com.np/contact.html",
+    "logo": "https://nepsop.com.np/assets/img/neop.sop.png",
+    "image": "https://nepsop.com.np/assets/img/neop.sop.png",
+    "description": "Contact nep.SOP, an SOP writing agency in Nepal offering professional Statement of Purpose writing services for Australia, Canada, USA, UK, and other destinations. Fully online/remote service.",
+    "telephone": "+977-9861935709",
+    "email": "info@nepsop.com.np",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "NP"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "00:00",
+      "closes": "23:59"
+    },
+    "sameAs": [
+      "https://www.facebook.com/nep.sopwrite",
+      "https://www.instagram.com/nep.sop/"
+    ]
+  }
+  </script>
+
+  <!-- BreadcrumbList structured data (matches the visible breadcrumb) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://nepsop.com.np/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Contact Us",
+        "item": "https://nepsop.com.np/contact.html"
+      }
     ]
   }
   </script>

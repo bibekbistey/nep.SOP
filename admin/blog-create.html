@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Create Blog | NEPSOP Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Favicons -->
+  <link href="../assets/favicon/apple-icon.png" rel="icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Admin CSS -->
+  <link href="../assets/css/admin.css" rel="stylesheet">
+
+  <!-- Quill 2 Rich Text Editor -->
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+
+  <style>
+    /* Quill editor integration with admin theme */
+    .quill-wrapper {
+      border: 1px solid var(--admin-border);
+      border-radius: 0 0 var(--admin-radius-md) var(--admin-radius-md);
+      overflow: hidden;
+    }
+    .quill-wrapper .ql-toolbar {
+      border: none;
+      border-bottom: 1px solid var(--admin-border);
+      background: var(--admin-surface);
+      padding: 8px 12px;
+    }
+    .quill-wrapper .ql-toolbar .ql-stroke {
+      stroke: var(--admin-text-secondary);
+    }
+    .quill-wrapper .ql-toolbar .ql-fill {
+      fill: var(--admin-text-secondary);
+    }
+    .quill-wrapper .ql-toolbar button:hover .ql-stroke,
+    .quill-wrapper .ql-toolbar .ql-active .ql-stroke {
+      stroke: var(--admin-primary);    }
+    .quill-wrapper .ql-toolbar button:hover .ql-fill,
+    .quill-wrapper .ql-toolbar .ql-active .ql-fill {
+      fill: var(--admin-primary);
+    }
+    .quill-wrapper .ql-toolbar button:hover,
+    .quill-wrapper .ql-toolbar button.ql-active {
+      background: var(--admin-primary-light);
+    }
+    .quill-wrapper .ql-toolbar .ql-picker-label {
+      color: var(--admin-text-secondary);
+    }
+    .quill-wrapper .ql-toolbar .ql-picker-label:hover,
+    .quill-wrapper .ql-toolbar .ql-picker-label.ql-active {
+      color: var(--admin-primary);
+    }
+    .quill-wrapper .ql-container {
+      border: none;
+      font-family: var(--admin-font);
+      font-size: 14px;
+      color: var(--admin-text);
+    }
+    .quill-wrapper .ql-editor {
+      min-height: 360px;
+      max-height: 600px;
+      overflow-y: auto;
+      padding: 16px;
+      line-height: 1.7;
+    }
+    .quill-wrapper .ql-editor.ql-blank::before {
+      color: var(--admin-text-light);
+      font-style: normal;
+      left: 16px;
+      right: 16px;
+    }
+    .quill-wrapper .ql-editor h2 {
+      font-family: var(--admin-font-heading);
+      font-size: 22px;
+      font-weight: 700;
+      margin: 20px 0 12px;
+      color: var(--admin-text);
+    }
+    .quill-wrapper .ql-editor h3 {
+      font-family: var(--admin-font-heading);
+      font-size: 18px;
+      font-weight: 600;
+      margin: 16px 0 10px;
+      color: var(--admin-text);
+    }
+    .quill-wrapper .ql-editor p {
+      margin: 0 0 10px;
+    }
+    .quill-wrapper .ql-editor ul,
+    .quill-wrapper .ql-editor ol {
+      padding-left: 24px;
+      margin: 0 0 10px;
+    }
+    .quill-wrapper .ql-editor blockquote {
+      border-left: 4px solid var(--admin-primary);
+      padding-left: 16px;
+      margin: 12px 0;
+      color: var(--admin-text-secondary);
+    }
+    .quill-wrapper .ql-editor a {
+      color: var(--admin-primary);
+    }
+    .quill-wrapper .ql-editor img {
+      max-width: 100%;
+      border-radius: var(--admin-radius-md);
+    }
+    /* Hide the original textarea */
+    .admin-editor-original { display: none; }
+    /* Content validation error */
+    .quill-wrapper.ql-error {
+      border-color: var(--admin-danger);
+    }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- Admin Navbar -->
+  <nav class="admin-navbar">
+    <a href="/admin/index.html" class="admin-brand">
+      <i class="bi bi-grid-1x2-fill"></i>
+      NEPSOP Admin
+      <span>/ Create Blog</span>
+    </a>
+    <div class="admin-navbar-right">
+      <span class="admin-email" id="adminEmail"></span>
+      <button class="admin-logout-btn" id="logoutBtn">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="admin-container">
+
+    <!-- Page Header -->
+    <div class="admin-page-header">
+      <div>
+        <h1><i class="bi bi-plus-circle"></i> Create New Blog</h1>
+        <p class="admin-page-subtitle">Write and publish a new article for the NEPSOP website.</p>
+      </div>
+      <a href="/admin/blogs.html" class="admin-btn admin-btn-outline">
+        <i class="bi bi-arrow-left"></i> Back to Blogs
+      </a>
+    </div>
+
+    <!-- Blog Form -->
+    <div class="admin-card">
+      <form id="blogForm">
+
+        <!-- Title & Slug -->
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="title">Blog Title *</label>
+          <input class="admin-form-input" type="text" id="title" name="title" required placeholder="How to Write a Winning SOP for Canada" style="font-size: 16px; padding: 12px 14px;">
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="slug">URL Slug</label>
+          <input class="admin-form-input" type="text" id="slug" name="slug" placeholder="auto-generated-from-title">
+          <p class="admin-form-hint">Auto-generated from title. You can edit it manually.</p>
+        </div>
+
+        <!-- Featured Image -->
+        <div class="admin-form-group">
+          <label class="admin-form-label">Featured Image</label>
+          <div class="admin-upload-area" id="uploadArea">
+            <div id="uploadPlaceholder">
+              <i class="bi bi-cloud-arrow-up"></i>
+              <p>Click to upload or drag and drop</p>
+              <small>PNG, JPG or WEBP — Max 5MB</small>
+            </div>
+            <div id="uploadPreview" style="display: none;">
+              <img class="admin-upload-preview" id="previewImg" src="" alt="Featured image preview">
+              <button type="button" class="admin-upload-remove" id="removeImage">
+                <i class="bi bi-x-lg"></i> Remove image
+              </button>
+            </div>
+          </div>
+          <input type="file" id="imageFileInput" accept="image/png,image/jpeg,image/webp" style="display: none;">
+          <input type="hidden" id="featuredImage" name="featured_image">
+          <p class="admin-form-hint" id="imageHint">Or paste a direct image URL below.</p>
+          <input class="admin-form-input" type="url" id="featuredImageUrl" name="featured_image_url" placeholder="https://example.com/image.jpg" style="margin-top: 8px; display: none;">
+        </div>
+
+        <!-- Excerpt -->
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="excerpt">Short Description / Excerpt</label>
+          <textarea class="admin-form-input" id="excerpt" name="excerpt" rows="3" placeholder="A brief summary of the blog post..." style="min-height: 80px; resize: vertical;"></textarea>
+        </div>
+
+        <!-- Author -->
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="author">Author</label>
+          <input class="admin-form-input" type="text" id="author" name="author" placeholder="NEPSOP Team">
+        </div>
+
+        <!-- Content Editor -->
+        <div class="admin-form-group">
+          <label class="admin-form-label">Blog Content *</label>
+          <div class="quill-wrapper" id="quillWrapper">
+            <div id="quillEditor"></div>
+          </div>
+          <textarea class="admin-form-textarea admin-editor-original" id="content" name="content"></textarea>
+        </div>
+
+        <!-- SEO Section -->
+        <div style="padding-top: 8px; margin-bottom: 20px;">
+          <h3 style="font-family: var(--admin-font-heading); font-size: 15px; font-weight: 700; margin: 0 0 4px; color: var(--admin-text);">
+            <i class="bi bi-search" style="color: var(--admin-primary);"></i> SEO Settings
+          </h3>
+          <p class="admin-form-hint" style="margin-bottom: 16px;">Optional — improve search engine visibility for this blog post.</p>
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="seoTitle">SEO Title</label>
+          <input class="admin-form-input" type="text" id="seoTitle" name="seo_title" placeholder="Custom title for search engines (defaults to blog title)">
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="seoDescription">SEO Meta Description</label>
+          <textarea class="admin-form-input" id="seoDescription" name="seo_description" rows="2" placeholder="Brief description for search engine results..." style="min-height: 60px; resize: vertical;"></textarea>
+        </div>
+
+        <!-- Status -->
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="status">Publish Status</label>
+          <select class="admin-form-input admin-form-select" id="status" name="status">
+            <option value="draft">Draft — Save without publishing</option>
+            <option value="published">Published — Live on the website</option>
+          </select>
+        </div>
+
+        <!-- Actions -->
+        <div class="admin-form-actions">
+          <button type="submit" class="admin-btn admin-btn-primary" id="submitBtn">
+            <i class="bi bi-check-lg"></i> <span id="submitBtnText">Save Blog</span>
+          </button>
+          <a href="/admin/blogs.html" class="admin-btn admin-btn-outline">Cancel</a>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <!-- Quill 2 Rich Text Editor -->
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+  <!-- Config -->
+  <script src="../assets/js/config.js"></script>
+
+  <!-- Supabase Client -->
+  <script src="../assets/js/supabase.js"></script>
+
+  <!-- Auth Module -->
+  <script src="../assets/js/auth.js"></script>
+
+  <!-- Blogs Module -->
+  <script src="../assets/js/blogs.js"></script>
+
+  <script>
+    (async function() {
+      // Protect this page
+      const session = await NEPSOP.auth.requireAuth();
+      if (!session) return;
+
+      // Show admin email
+      document.getElementById('adminEmail').textContent = session.user.email;
+
+      // Logout
+      document.getElementById('logoutBtn').addEventListener('click', async function() {
+        await NEPSOP.auth.logout();
+      });
+
+      const titleInput = document.getElementById('title');
+      const slugInput = document.getElementById('slug');
+      const form = document.getElementById('blogForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const submitBtnText = document.getElementById('submitBtnText');
+      const contentArea = document.getElementById('content');
+      const quillWrapper = document.getElementById('quillWrapper');
+
+      // ── Initialize Quill Editor ──
+      var quill = new Quill('#quillEditor', {
+        theme: 'snow',
+        placeholder: 'Start writing your blog here...',
+        modules: {
+          toolbar: [
+            [{ 'header': [2, 3, false] }],
+            ['bold', 'italic', 'underline'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ['blockquote', 'link', 'image'],
+            ['clean']
+          ]
+        }
+      });
+
+      let slugManuallyEdited = false;
+
+      // Auto-generate slug from title
+      slugInput.addEventListener('focus', function() {
+        if (!slugManuallyEdited && !slugInput.value) {
+          slugInput.value = NEPSOP.blogs.generateSlug(titleInput.value);
+        }
+      });
+
+      slugInput.addEventListener('input', function() {
+        slugManuallyEdited = true;
+      });
+
+      titleInput.addEventListener('input', function() {
+        if (!slugManuallyEdited) {
+          slugInput.value = NEPSOP.blogs.generateSlug(titleInput.value);
+        }
+      });
+
+      // ── Image Upload ──
+      var uploadArea = document.getElementById('uploadArea');
+      var fileInput = document.getElementById('imageFileInput');
+      var featuredImageInput = document.getElementById('featuredImage');
+      var uploadPlaceholder = document.getElementById('uploadPlaceholder');
+      var uploadPreview = document.getElementById('uploadPreview');
+      var previewImg = document.getElementById('previewImg');
+      var removeImageBtn = document.getElementById('removeImage');
+      var imageUrlInput = document.getElementById('featuredImageUrl');
+      var imageHint = document.getElementById('imageHint');
+
+      uploadArea.addEventListener('click', function() {
+        fileInput.click();
+      });
+
+      uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+      });
+
+      uploadArea.addEventListener('dragleave', function() {
+        uploadArea.classList.remove('dragover');
+      });
+
+      uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        var files = e.dataTransfer.files;
+        if (files.length > 0) handleImageFile(files[0]);
+      });
+
+      fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) handleImageFile(this.files[0]);
+      });
+
+      function handleImageFile(file) {
+        if (!file.type.match(/image\/(png|jpeg|webp)/)) {
+          showToast('Please upload a PNG, JPG, or WEBP image.', 'error');
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          showToast('Image must be under 5MB.', 'error');
+          return;
+        }
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          previewImg.src = e.target.result;
+          featuredImageInput.value = e.target.result;
+          uploadPlaceholder.style.display = 'none';
+          uploadPreview.style.display = 'block';
+          uploadArea.classList.add('has-image');
+          imageUrlInput.style.display = 'none';
+          imageHint.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+      }
+
+      removeImageBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        previewImg.src = '';
+        featuredImageInput.value = '';
+        fileInput.value = '';
+        uploadPlaceholder.style.display = '';
+        uploadPreview.style.display = 'none';
+        uploadArea.classList.remove('has-image');
+        imageUrlInput.style.display = '';
+        imageHint.style.display = '';
+      });
+
+      // ── Helper: Check if Quill has meaningful content ──
+      function hasContent(q) {
+        var text = q.getText().trim();
+        if (text.length > 0) return true;
+        var html = q.root.innerHTML.trim();
+        // Check for meaningful HTML (not just empty tags)
+        if (html && html !== '<p><br></p>' && html !== '<p></p>' && html !== '<br>') return true;
+        return false;
+      }
+
+      // ── Helper: Remove validation error style ──
+      quill.on('text-change', function() {
+        quillWrapper.classList.remove('ql-error');
+      });
+
+      // ── Form Submission ──
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        var title = titleInput.value.trim();
+        var slug = slugInput.value.trim() || NEPSOP.blogs.generateSlug(title);
+
+        if (!title) {
+          showToast('Please enter a blog title.', 'error');
+          return;
+        }
+
+        // Validate content
+        if (!hasContent(quill)) {
+          quillWrapper.classList.add('ql-error');
+          showToast('Please enter some blog content.', 'error');
+          return;
+        }
+
+        // Sync Quill content to hidden textarea
+        contentArea.value = quill.root.innerHTML;
+
+        submitBtn.disabled = true;
+        submitBtnText.textContent = 'Saving...';
+
+        try {
+          var featuredImage = featuredImageInput.value || imageUrlInput.value.trim() || '';
+
+          var blog = await NEPSOP.blogs.createBlog({
+            title: title,
+            slug: slug,
+            excerpt: document.getElementById('excerpt').value.trim(),
+            featured_image: featuredImage,
+            author: document.getElementById('author').value.trim(),
+            content: contentArea.value,
+            status: document.getElementById('status').value,
+          });
+
+          showToast('Blog created successfully!', 'success');
+
+          // Redirect to edit page after short delay
+          setTimeout(function() {
+            window.location.href = '/admin/blog-edit.html?id=' + blog.id;
+          }, 1000);
+        } catch (err) {
+          console.error('[NEPSOP] Create blog error:', err);
+          showToast('Unable to save blog. Please try again.', 'error');
+          submitBtn.disabled = false;
+          submitBtnText.textContent = 'Save Blog';
+        }
+      });
+
+      // ── Toast ──
+      function showToast(message, type) {
+        var existing = document.querySelector('.admin-toast');
+        if (existing) existing.remove();
+
+        var icon = type === 'success' ? 'check-circle-fill' : 'exclamation-circle-fill';
+        var toast = document.createElement('div');
+        toast.className = 'admin-toast admin-toast-' + type;
+        toast.innerHTML = '<i class="bi bi-' + icon + '"></i> ' + message;
+        document.body.appendChild(toast);
+
+        setTimeout(function() {
+          toast.remove();
+        }, 3500);
+      }
+    })();
+  </script>
+
+</body>
+</html>
