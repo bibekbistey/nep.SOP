@@ -74,6 +74,20 @@ function stripHtml(html) {
     .trim();
 }
 
+function isIndexableBlog(blog) {
+  const title = String(blog.title || '').trim();
+  const slug = String(blog.slug || slugify(title)).trim();
+  const excerpt = stripHtml(blog.excerpt);
+  const contentText = stripHtml(blog.content);
+
+  if (/^(test|demo|sample)\b/i.test(title)) return false;
+  if (/^(test|demo|sample)[-_]/i.test(slug)) return false;
+  if (title.length < 15 || excerpt.length < 30) return false;
+  if (contentText.length < 500) return false;
+
+  return true;
+}
+
 function readingTime(blog) {
   const words = `${blog.title || ''} ${blog.excerpt || ''} ${blog.content || ''}`
     .trim()
@@ -113,6 +127,7 @@ function fileLastmod(file) {
 const STATIC_PAGES = [
   ['index.html', 1.0],
   ['sop-writing-nepal.html', 0.9],
+  ['relationship-history-timeline.html', 0.7],
   ['australia-sop.html', 0.8],
   ['canada-sop.html', 0.8],
   ['usa-sop.html', 0.8],
@@ -385,6 +400,7 @@ function generateLlmsTxt(blogs) {
   lines.push('- [Germany SOP](' + SITE_URL + '/germany-sop.html)');
   lines.push('- [Malta SOP](' + SITE_URL + '/malta-sop.html)');
   lines.push('- [Dependent Visa SOP](' + SITE_URL + '/dependent-visa-sop.html)');
+  lines.push('- [Relationship History & Timeline](' + SITE_URL + '/relationship-history-timeline.html)');
   lines.push('- [Why Choose nep.SOP](' + SITE_URL + '/why-choose-nepsop.html)');
   lines.push('- [Experienced SOP Writers](' + SITE_URL + '/experienced-sop-writers.html)');
   lines.push('- [Multi-Country Expertise](' + SITE_URL + '/multi-country-sop-expertise.html)');
@@ -432,8 +448,10 @@ async function main() {
         .order('published_at', { ascending: false });
 
       if (error) throw error;
-      blogs = data || [];
-      log(`Fetched ${blogs.length} published blog(s).`);
+      const publishedBlogs = data || [];
+      blogs = publishedBlogs.filter(isIndexableBlog);
+      const excludedCount = publishedBlogs.length - blogs.length;
+      log(`Fetched ${publishedBlogs.length} published blog(s); indexing ${blogs.length}${excludedCount ? ` (${excludedCount} excluded by quality checks)` : ''}.`);
 
       const blogsDir = path.join(ROOT, 'blogs');
       fs.mkdirSync(blogsDir, { recursive: true });

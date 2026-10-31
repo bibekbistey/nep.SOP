@@ -46,6 +46,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://nepsop.com.np/relationship-history-timeline.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://nepsop.com.np/why-choose-nepsop.html</loc>
     <lastmod>2026-09-07</lastmod>
     <priority>0.6</priority>
@@ -93,11 +98,6 @@
   <url>
     <loc>https://nepsop.com.np/blogs/how-to-write-a-strong-sop-for-studying-abroad.html</loc>
     <lastmod>2026-09-08</lastmod>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://nepsop.com.np/blogs/test-blog.html</loc>
-    <lastmod>2026-08-25</lastmod>
     <priority>0.7</priority>
   </url>
 </urlset>

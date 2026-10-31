@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * Initiate glightbox (guard against missing elements on cross-pages)
    */
-  if (document.querySelector('.glightbox')) {
+  if (typeof GLightbox !== 'undefined' && document.querySelector('.glightbox')) {
     const glightbox = GLightbox({
       selector: '.glightbox'
     });
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * Clients Slider (guard: only init if element exists)
    */
   const clientsSlider = document.querySelector('.clients-slider');
-  if (clientsSlider) {
+  if (typeof Swiper !== 'undefined' && clientsSlider) {
     new Swiper('.clients-slider', {
       speed: 400,
       loop: true,
@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * Init swiper slider with 1 slide at once in desktop view
    */
   const slides1 = document.querySelector('.slides-1');
-  if (slides1) {
+  if (typeof Swiper !== 'undefined' && slides1) {
     new Swiper('.slides-1', {
       speed: 600,
       loop: true,
@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * Init swiper slider with 3 slides at once in desktop view
    */
   const slides3 = document.querySelector('.slides-3');
-  if (slides3) {
+  if (typeof Swiper !== 'undefined' && slides3) {
     new Swiper('.slides-3', {
       speed: 600,
       loop: true,
@@ -363,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   let portfolionIsotope = document.querySelector('.portfolio-isotope');
 
-  if (portfolionIsotope) {
+  if (typeof Isotope !== 'undefined' && portfolionIsotope) {
 
     let portfolioFilter = portfolionIsotope.getAttribute('data-portfolio-filter') ? portfolionIsotope.getAttribute('data-portfolio-filter') : '*';
     let portfolioLayout = portfolionIsotope.getAttribute('data-portfolio-layout') ? portfolionIsotope.getAttribute('data-portfolio-layout') : 'masonry';
@@ -399,6 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * Animation on scroll function and init
    */
   function aos_init() {
+    if (typeof AOS === 'undefined') return;
     AOS.init({
       duration: 1000,
       easing: 'ease-in-out',

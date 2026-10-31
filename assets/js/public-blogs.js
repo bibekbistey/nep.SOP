@@ -13,6 +13,7 @@
     searchTerm: '',
     page: 1,
     perPage: 6,
+    filtersBound: false,
   };
 
   function formatDate(dateStr) {
@@ -196,11 +197,13 @@
     container.innerHTML = visibleBlogs.map((blog) => {
       const category = detectCategory(blog);
       const image = blog.featured_image
-        ? `<img src="${escapeHtml(blog.featured_image)}" alt="${escapeHtml(blog.title)}" loading="lazy">`
+        ? `<img src="${escapeHtml(blog.featured_image)}" alt="${escapeHtml(blog.title)}" loading="lazy"><div class="blog-card-image-placeholder" hidden><i class="bi bi-journal-text"></i></div>`
         : `<div class="blog-card-image-placeholder"><i class="bi bi-journal-text"></i></div>`;
       const excerpt = truncateText(stripHtml(blog.excerpt || blog.content || ''), 150) || 'Explore practical advice and actionable insights for your academic journey.';
       const author = blog.author ? `<span class="blog-card-author"><i class="bi bi-person"></i> ${escapeHtml(blog.author)}</span>` : '';
-      const blogUrl = `blog.html?id=${encodeURIComponent(blog.id)}&slug=${encodeURIComponent(blog.slug || '')}`;
+      const blogUrl = blog.slug
+        ? `blogs/${encodeURIComponent(blog.slug)}.html`
+        : `blog.html?id=${encodeURIComponent(blog.id)}`;
 
       return `
         <div class="col-lg-4 col-md-6" data-aos="fade-up">
@@ -230,6 +233,14 @@
       `;
     }).join('');
 
+    container.querySelectorAll('.blog-card-image img').forEach((image) => {
+      image.addEventListener('error', () => {
+        image.hidden = true;
+        const placeholder = image.nextElementSibling;
+        if (placeholder) placeholder.hidden = false;
+      }, { once: true });
+    });
+
     buildPagination(totalPages);
 
     if (typeof AOS !== 'undefined') {
@@ -252,6 +263,8 @@
   }
 
   function bindFilters() {
+    if (blogState.filtersBound) return;
+
     document.querySelectorAll('.blog-filter-btn').forEach((button) => {
       button.addEventListener('click', () => handleFilterButtonClick(button));
     });
@@ -264,11 +277,27 @@
         renderBlogList();
       });
     }
+
+    blogState.filtersBound = true;
   }
 
   async function loadBlogList(containerId, emptyMessage) {
     const container = document.getElementById(containerId);
     if (!container) return;
+
+    if (!window.NEPSOP_SUPABASE) {
+      console.error('[NEPSOP] Supabase client is unavailable. Blog list cannot load.');
+      container.innerHTML = `
+        <div class="col-12">
+          <div class="blog-empty">
+            <i class="bi bi-exclamation-triangle"></i>
+            <h3>Unable to load articles</h3>
+            <p>Please try refreshing the page or check back later.</p>
+          </div>
+        </div>
+      `;
+      return;
+    }
 
     container.innerHTML = '<div class="col-12"><div class="text-center py-5"><div class="spinner-border text-danger" role="status"><span class="visually-hidden">Loading...</span></div></div></div>';
 
@@ -320,7 +349,9 @@
 
     wrap.innerHTML = related.map((blog) => {
       const category = getBlogCategory(blog);
-      const blogUrl = `blog.html?id=${encodeURIComponent(blog.id)}&slug=${encodeURIComponent(blog.slug || '')}`;
+      const blogUrl = blog.slug
+        ? `blogs/${encodeURIComponent(blog.slug)}.html`
+        : `blog.html?id=${encodeURIComponent(blog.id)}`;
       const image = blog.featured_image
         ? `<img src="${escapeHtml(blog.featured_image)}" alt="${escapeHtml(blog.title)}" loading="lazy">`
         : '<div style="display:flex;align-items:center;justify-content:center;height:100%;background:linear-gradient(135deg,#fff3ef,#f5f5f4);color:#cd4629;font-size:2rem;"><i class="bi bi-journal-text"></i></div>';
@@ -580,11 +611,7 @@
   }
 
   function init() {
-    const filters = document.getElementById('blogFilters');
-    if (filters) {
-      bindFilters();
-    }
-
+    bindFilters();
     loadBlogList('blogList', 'No blog posts published yet. Check back soon!');
   }
 
